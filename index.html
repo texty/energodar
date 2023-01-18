@@ -159,30 +159,27 @@
         padding: 0 3px
     }
 
-    img {
+    .step img {
         max-width: 95%;
+        -webkit-filter: grayscale(100%); 
+        filter: grayscale(100%);
     }
-    .step .image-wrapper {
+    .step img:hover {
+        -webkit-filter: none; 
+        filter: none;
+    }
+
+    .step .grid-wrapper {
         display: grid;
         margin: 10px 0;
-    }
-
-
-    .step .image-wrapper.left-aligned {
         grid-template-columns: 2.5fr 1fr;
-    }
-
-    .step .image-wrapper.right-aligned {
-        grid-template-columns: 1fr 2.5fr;
     }
 
     figcaption {
         font-size: 13px;
     }
 
-    .right-aligned figcaption {
-        text-align: right;
-    }
+
 
 
 
@@ -222,14 +219,15 @@
             
             <p>Російський снаряд влучив в енергоблок № 1 і пошкодив обшивку реактора. Два снаряди влучили поблизу сховища відпрацьованого ядерного палива, як повідомив Енергоатом.</p>
                 
-            <div class="image-wrapper left-aligned">
+            <div class="grid-wrapper">
                 <img src="img/training_center.jpg"/>
                 <figcaption>Навчально-тренувальний центр ЗАЕС після обстрілів російською армією</figcaption>
             </div>
             
-            <div class="image-wrapper right-aligned">
-                <figcaption>Підбитий нацгвардійцями російський танк залишився на території станції. Гармата націлена на енергоблок № 1. Фото: Енергоатом</figcaption>
+            <div class="image-wrapper">
                 <img src="img/rustank_znpp.jpeg"/>
+                <figcaption>Підбитий нацгвардійцями російський танк залишився на території станції. Гармата націлена на енергоблок № 1. Фото: Енергоатом</figcaption>
+                
                 
             </div>
                 
