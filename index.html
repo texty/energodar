@@ -123,9 +123,9 @@
     #scroll {        
         position: relative;
         width: 100%;
-        margin: 50px auto 50px auto;    
-        /* display: grid;
-        grid-template-columns: 3fr 1fr;     */
+        margin: 0 auto 50px auto;    
+        display: grid;
+        grid-template-columns: 3fr 1.5fr;
     }
   
   .scroll__graphic {        
@@ -135,7 +135,7 @@
         top: 0;
         left: 1em;
         max-height: 100vh;
-        z-index: 0; 
+        z-index: -1; 
         background-color: white;
     }   
 
@@ -149,21 +149,6 @@
         background-color:rgba(18, 18, 18, 0.8)
     }
 
-    @media(max-width: 800px){
-        #map {
-            width: 100%;
-            height: 50vh;
-        }
-
-        .scroll__graphic { 
-            z-index: 20;
-         }
-
-         .scroll__text {  
-            z-index: 10;
-            }
-    }
-    
     .step {
         width: 100%;
         height: max-content;
@@ -176,6 +161,31 @@
         /* background-color: rgba(255, 255, 255, 0.9); */
     }
 
+    @media(max-width: 800px){
+        #map {
+            width: 100%;
+            height: 50vh;
+        }
+
+        #scroll {
+            display: block;
+        }
+
+        .scroll__graphic { 
+            z-index: 20;
+         }
+
+         .scroll__text {  
+            z-index: 10;
+        }
+
+        .step {
+            margin-bottom: 40vh;
+        }
+    }
+    
+   
+
     .hightlited {
         background-color: #cf616378;
         padding: 0 3px
@@ -183,13 +193,9 @@
 
     .step img {
         max-width: 95%;
-        -webkit-filter: grayscale(100%); 
-        filter: grayscale(100%);
+        
     }
-    .step img:hover {
-        -webkit-filter: none; 
-        filter: none;
-    }
+ 
 
     .step .grid-wrapper {
         display: grid;
@@ -233,7 +239,7 @@
     <div class='scroll__text'>
         <div class="step" data-polygons='["r1", "r2", "r3", "r4", "r5", "r6"]' data-points='[]'>
             <div>
-            <p><span class="hightlited">4 березня</span> 2022 року на Запорізькій атомній станції (ЗАЕС) у робочому стані перебував лише енергоблок № 4. 
+            <p><span class="hightlited">4 березня</span> 2022 року на Запорізькій атомній станції (ЗАЕС) у робочому стані перебував лише <span class="show-popup" data-clicl="[34.584317,47.510076]"> енергоблок № 4.</span>
                 Енергоблок № 1 був на планово-попереджувальному ремонті.
                 Енергоблоки № 2 і № 3 — відімкнено від мережі та переведено в безпечний стан.
                 Енергоблоки № 5 і № 6 — переведено в безпечний стан.
@@ -402,7 +408,7 @@
         </div>
 
         
-        <div class="step" data-polygons='["r6", "per1", "st1"]' data-points='[]'>
+        <div class="step" data-polygons='["r6", "st1"]' data-points='[]'>
             <div>
                 <p>Вибух міни на периметрі ЗАЕС. 
                     <span class="hightlited">29 вересня</span> на лінії подачі напруги на азотно-кисневу станцію від енергоблоку № 6 стався вибух. “Причина в тому, що периметр ЗАЕС заміновано російськими військовими, — повідомляє Енергоатом. — Уже було шість випадків, коли на мінах підривалися собаки, лисиці й дикі кабани”.</p>

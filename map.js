@@ -1,4 +1,7 @@
-var map_center = window.innerWidth > 800 ? [34.5970, 47.5089] : [34.5870, 47.5089]
+var iW = window.innerWidth;
+var main_zoom = iW > 800 ? 14.5 : 14;
+
+var map_center = [34.586999, 47.511116]
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiZXZnZXNoYWRyb3pkb3ZhIiwiYSI6ImNqOWRhbnk3MDI4MGIycW9ya2hibG9pNm8ifQ.8VxS8cKEypk08xfgUgbsHw';
 const map = new mapboxgl.Map({
@@ -7,7 +10,7 @@ const map = new mapboxgl.Map({
     style: 'mapbox://styles/mapbox/satellite-v9',
     //style: 'mapbox://styles/mapbox/light-v11',
     center: map_center,
-    zoom: 12,
+    zoom: main_zoom,
     pitch: 0,
     bearing: 0,
     antialias: true
@@ -15,10 +18,14 @@ const map = new mapboxgl.Map({
 
 
 
+
 map.scrollZoom.disable();
 map.addControl(new mapboxgl.NavigationControl(),  'top-left');
 
 map.on('load', function () {
+
+    if(window.innerWidth > 800){
+        d3.select(".scroll__graphic").style("z-index", 0)}
 
 //     map.addSource('bla.tile',{
 //         'type': 'raster',
@@ -32,7 +39,7 @@ map.on('load', function () {
 //         'source': 'bla.tile'
 //     })
 
-    map.addSource('picture', { 
+    map.addSource('picture1', { 
         'type': 'image',  
         'url': 'img/15_11 копія 2.png', 
         'coordinates': [
@@ -42,21 +49,47 @@ map.on('load', function () {
             [34.600264,47.495433]
         ]              
     });  
+
+    map.addSource('picture2', { 
+        'type': 'image',  
+        'url': 'img/15_10 копія.png', 
+        'coordinates': [
+            [34.5354264,47.5306849],
+            [34.5426339,47.5306849],
+            [34.5426002,47.5279939],
+            [34.5354376,47.5280015]
+        ]              
+    });  
             
     map.addLayer({
         id: 'tif',
         'type': 'raster',
-        'source': 'picture',
+        'source': 'picture1',
         'minzoom': 12, 
         'layout': {
             // Make the layer visible by default.
-            'visibility': 'none'
+            //'visibility': 'none'
             },
         'paint': {
             'raster-fade-duration': 0,
             
         }
         });
+
+        map.addLayer({
+            id: 'tif2',
+            'type': 'raster',
+            'source': 'picture2',
+            'minzoom': 12, 
+            'layout': {
+                // Make the layer visible by default.
+                //'visibility': 'none'
+                },
+            'paint': {
+                'raster-fade-duration': 0,
+                
+            }
+            });
 
     map.addSource("polygon", {
         "type": "geojson",
@@ -72,16 +105,19 @@ map.on('load', function () {
         "id": "boundary-layer",
         'type': 'fill',
         "source": "polygon",
+        
         "layout": {
             "fill-sort-key": ["to-number", ["get", "area"]],
+           
         },
         'paint': {
             'fill-color': "#FF00FF",
-            'fill-opacity': 0.2,
-             
-
+            'fill-opacity': 0.2
         }
     });
+
+    map.setFilter(  'boundary-layer', ["match", ["get", "id"], [""], true, false])
+
 
     map.addLayer({
         "id": "points-layer",
@@ -97,8 +133,38 @@ map.on('load', function () {
         }
     });
 
-
-
+const index_locations = {
+    0: {"coords": [34.586999, 47.511116], "zoom": main_zoom }, 
+    1: {"coords":[34.586999, 47.511116], "zoom": main_zoom },
+    2: {"coords":[34.587287,47.506251], "zoom": main_zoom },
+    3: {"coords":[34.586999, 47.511116], "zoom": iW > 800 ? 14 : 13.5 },
+    4: {"coords":[34.612, 47.4989], "zoom": main_zoom },
+    5: {"coords":[34.591758,47.510318], "zoom": main_zoom },
+    6: {"coords":[34.586999, 47.511116], "zoom": main_zoom },
+    7: {"coords":[34.586577,47.508072], "zoom": main_zoom },
+    8: {"coords":[34.586999, 47.511116], "zoom": main_zoom },
+    9: {"coords": [34.590475,47.514544], "zoom": main_zoom },
+    10: {"coords":[34.585205,47.500703], "zoom": main_zoom },
+    11: {"coords":[34.594374,47.514739], "zoom": main_zoom },
+    12: {"coords":[34.584205,47.507104], "zoom": main_zoom },
+    13: {"coords":[34.586999, 47.511116], "zoom": main_zoom },
+    14: {"coords":[34.586999, 47.511116], "zoom": main_zoom },
+    15: {"coords":[34.586999, 47.511116], "zoom": main_zoom },
+    16: {"coords":[34.594231,47.513551], "zoom": main_zoom },
+    17: {"coords":[34.586999, 47.511116], "zoom": main_zoom - 0.5 },
+    18: {"coords":[34.586999, 47.511116], "zoom": main_zoom - 0.5 },
+    19: {"coords":[34.586999, 47.511116], "zoom": main_zoom - 0.5 },
+    20: {"coords":[34.55026,47.51112], "zoom": 12 },
+    21: {"coords":[34.586999, 47.511116], "zoom": main_zoom - 0.5 },
+    22: {"coords":[34.590182,47.514252], "zoom": main_zoom },
+    23: {"coords":[34.590182,47.514252], "zoom": main_zoom },
+    24: {"coords":[34.586999, 47.511116], "zoom": main_zoom },
+    25: {"coords":[34.586999, 47.511116], "zoom": main_zoom },
+    26: {"coords":[34.586999, 47.511116], "zoom": main_zoom },
+    27: {"coords":[34.586999, 47.511116], "zoom": main_zoom },
+    28: {"coords":[34.586999, 47.511116], "zoom": main_zoom },
+    29: {"coords":[34.586999, 47.511116], "zoom": main_zoom },
+}
 
 
 
@@ -114,7 +180,18 @@ function handleStepEnter(r) {
     let myarr = $(r.element).data("polygons");
     let myarr2 = $(r.element).data("points");
 
-    map.setFilter(  'boundary-layer', ["match", ["get", "id"], myarr, true, false])
+    map.setFilter('boundary-layer', ["match", ["get", "id"], myarr, true, false]);
+
+    // d3.selectAll("show-popup").on("mouseover", function(d){
+        
+    //     let clickCoords = d3.select(this).attr("data-click");
+
+    //     console.log()
+    //     map.fireEvent('mouseenter', {latlng: L.latLng(clickCoords[0],clickCoords[1])});
+
+    // });
+
+
     
     // map.setPaintProperty(
     //     'boundary-layer', 
@@ -129,71 +206,12 @@ function handleStepEnter(r) {
             ['case',['in', ['get','id'], ['literal', myarr2]], 1, 0]
         );
 
-
-    if(r.index === 0){
-
         map.flyTo({
-            center: [34.6070, 47.4989],
-            zoom: 12.8,
+            center: index_locations[r.index].coords,
+            zoom: index_locations[r.index].zoom,
             duration: 1200, 
             essential: true
         })
-    }
-
-    if(r.index === 3){
-        map.flyTo({
-            center: [34.6070, 47.4989],
-            zoom: 12.8,
-            duration: 1200, 
-            essential: true
-        })
-    }
-
-    if(r.index === 4){
-        map.flyTo({
-            center: [34.612, 47.4989],
-            zoom: 14,
-            duration: 1200, 
-            essential: true
-        });
-
-        map.setLayoutProperty(
-            'tif',
-            'visibility',
-            'visible'
-            );
-    }
-
-
-
-    if(r.index === 5){
-        map.flyTo({
-            center: [34.5970, 47.5089],
-            zoom: 14,
-            duration: 1200, 
-            essential: true
-        })
-    }
-
-    if(r.index === 6 || r.index === 3){
-        map.setLayoutProperty(
-            'tif',
-            'visibility',
-            'none'
-            );
-    }
-
-    if(r.index === 10){
-        map.flyTo({
-            center: [34.5970, 47.5089],
-            zoom: 12.8,
-            duration: 1200, 
-            essential: true
-        })
-    }
-    
-       
-     
 
 }
       
@@ -203,7 +221,7 @@ function init() {
         graphic: '.scroll__graphic',
         text: '.scroll__text',
         step: '.scroll__text .step',
-        offset: 0.5,
+        offset: iW > 800 ? 0.5 : 0.6,
         debug: false
     })
         .onStepEnter(handleStepEnter);
