@@ -184,7 +184,7 @@ function handleStepEnter(r) {
 
     var f_popup = new mapboxgl.Popup({
         closeOnClick: false,
-        offset: [0, -15]
+        offset: [-15, 15]
       })
 
     d3.selectAll(".show-popup").on("mouseover", function(d){
