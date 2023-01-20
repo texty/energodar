@@ -182,14 +182,34 @@ function handleStepEnter(r) {
 
     map.setFilter('boundary-layer', ["match", ["get", "id"], myarr, true, false]);
 
-    // d3.selectAll("show-popup").on("mouseover", function(d){
-        
-    //     let clickCoords = d3.select(this).attr("data-click");
+    var f_popup = new mapboxgl.Popup({
+        closeOnClick: false,
+        offset: [0, -15]
+      })
 
-    //     console.log()
-    //     map.fireEvent('mouseenter', {latlng: L.latLng(clickCoords[0],clickCoords[1])});
+    d3.selectAll(".show-popup").on("mouseover", function(d){
+        let popup_element = $(this).data("click");
 
-    // });
+        let filtered_feature = map.querySourceFeatures('polygon', {
+            sourceLayer: 'boundary-layer',
+            filter: ["==", "id", popup_element]
+        });
+
+        var f_lat = filtered_feature[0].geometry.coordinates[0][0][0]
+        var f_lon = filtered_feature[0].geometry.coordinates[0][0][1]
+        let description = filtered_feature[0].properties.title
+
+       f_popup
+          .setLngLat([f_lat, f_lon])
+          .setHTML(description)
+          .addTo(map);
+    });
+
+    d3.selectAll(".show-popup").on("mouseleave", function(d){
+        f_popup.remove()
+    })
+
+    
 
 
     
