@@ -93,7 +93,7 @@ map.on('load', function () {
 
     map.addSource("polygon", {
         "type": "geojson",
-        'data': "polygons.geojson"
+        'data': "polygon2.geojson"
     });
 
     map.addSource("points", {
@@ -184,7 +184,7 @@ function handleStepEnter(r) {
 
     var f_popup = new mapboxgl.Popup({
         closeOnClick: false,
-        offset: [-15, 15]
+        offset: [0, 0]
       })
 
     d3.selectAll(".show-popup").on("mouseover", function(d){
@@ -195,12 +195,12 @@ function handleStepEnter(r) {
             filter: ["==", "id", popup_element]
         });
 
-        var f_lat = filtered_feature[0].geometry.coordinates[0][0][0]
-        var f_lon = filtered_feature[0].geometry.coordinates[0][0][1]
-        let description = filtered_feature[0].properties.title
+        var f_polygon = turf.polygon(filtered_feature[0].geometry.coordinates);
+        var centroid = turf.centroid(f_polygon);
+        let description = filtered_feature[0].properties.title;
 
        f_popup
-          .setLngLat([f_lat, f_lon])
+          .setLngLat(centroid.geometry.coordinates)
           .setHTML(description)
           .addTo(map);
     });
@@ -209,16 +209,29 @@ function handleStepEnter(r) {
         f_popup.remove()
     })
 
-    
+    d3.selectAll(".show-point-popup").on("mouseover", function(d){
+        let popup_element = $(this).data("click");
 
+        let filtered_feature = map.querySourceFeatures('points', {
+            sourceLayer: 'points-layer',
+            filter: ["==", "id", popup_element]
+        });
 
-    
-    // map.setPaintProperty(
-    //     'boundary-layer', 
-        
-    //     'fill-opacity', 
-    //         ['case',['in', ['get','id'], ['literal', myarr]], 0.5, 0]
-    //     ),
+        // console.log(filtered_feature);
+
+        // var f_polygon = turf.polygon(filtered_feature[0].geometry.coordinates[0]);
+        // var centroid = turf.centroid(f_polygon);
+        let description = filtered_feature[0].properties.name;
+
+       f_popup
+          .setLngLat([filtered_feature[0].geometry.coordinates[0],filtered_feature[0].geometry.coordinates[1]])
+          .setHTML(description)
+          .addTo(map);
+    });
+
+    d3.selectAll(".show-point-popup").on("mouseleave", function(d){
+        f_popup.remove()
+    })
 
     map.setPaintProperty(
         'points-layer', 
