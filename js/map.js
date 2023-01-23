@@ -157,7 +157,7 @@ function handleStepEnter(r) {
 
     // text hover popup
     var f_popup = new mapboxgl.Popup({
-        closeOnClick: false,
+        closeOnClick: true,
         closeButton: false,
         offset: [0, 0]
       })
