@@ -37,7 +37,7 @@ map.on('load', function () {
 
     map.addSource("polygon", {
         "type": "geojson",
-        'data': "data/polygon2_2.geojson"
+        'data': "data/polygon2.geojson"
     });
 
     map.addSource("points", {
@@ -177,6 +177,8 @@ function handleStepEnter(r) {
         var centroid = turf.centroid(f_polygon);
         let description = filtered_feature[0].properties.title;
 
+        
+
        f_popup
           .setLngLat(centroid.geometry.coordinates)
           .setHTML(description)
@@ -245,19 +247,64 @@ map.on('mouseenter', 'boundary-layer', (e) => {
     // Copy coordinates array.
     const coordinates = e.features[0].geometry.coordinates[0].slice();
     const description = e.features[0].properties.title;
-    
-    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-    }
 
-    popup
-    .setLngLat([e.lngLat.lng, e.lngLat.lat])
-    .setHTML(description)
-    .addTo(map);
+    let filtered_feature = map.querySourceFeatures('polygon', {
+        sourceLayer: 'boundary-layer',
+        filter: ["==", "id",  e.features[0].properties.id]
+    });
+
+    var f_polygon = turf.polygon(filtered_feature[0].geometry.coordinates);
+    var centroid = turf.centroid(f_polygon);
+    console.log(centroid.geometry.coordinates)
+    
+
+   popup
+      .setLngLat(centroid.geometry.coordinates)
+      .setHTML(description)
+      .addTo(map);
+    
+    // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+    //     coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    // }
+
+    // popup
+    // .setLngLat([e.lngLat.lng, e.lngLat.lat])
+    // .setHTML(description)
+    // .addTo(map);
 });
 
+map.on('touchstart', 'boundary-layer', (e) => {
+    
+    // Copy coordinates array.
+    const coordinates = e.features[0].geometry.coordinates[0].slice();
+    const description = e.features[0].properties.title;
 
-map.on('mouseenter', 'points-layer', (e) => {
+    let filtered_feature = map.querySourceFeatures('polygon', {
+        sourceLayer: 'boundary-layer',
+        filter: ["==", "id",  e.features[0].properties.id]
+    });
+
+    var f_polygon = turf.polygon(filtered_feature[0].geometry.coordinates);
+    var centroid = turf.centroid(f_polygon);
+    console.log(centroid.geometry.coordinates)
+    
+
+   popup
+      .setLngLat(centroid.geometry.coordinates)
+      .setHTML(description)
+      .addTo(map);
+    
+    // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+    //     coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    // }
+
+    // popup
+    // .setLngLat([e.lngLat.lng, e.lngLat.lat])
+    // .setHTML(description)
+    // .addTo(map);
+});
+
+map.on('mouseover', 'points-layer', (e) => {
     console.log(e.features[0].geometry.coordinates)
     
     // Copy coordinates array.

@@ -200,7 +200,7 @@ p.tip-p {
     font-size: 16px;
 }
 
-.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+.mapboxgl-popup-tip {
     align-self: center;
     border-bottom: none;
     border-top-color: #f26444dd !important
