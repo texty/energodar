@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ядерний терор</title>
 
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
     <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
@@ -20,696 +20,455 @@
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js"></script>
 
-   
-
+    <link rel="stylesheet" href="css/styles.css"/>
 </head>
 
 <body>
-
-<style>
-    body {
-        background-color: black;
-    }
-
-    main {
-        max-width: 850px;
-        margin: auto;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, 200px);
-        justify-content: center;
-    }
-
-    @media(max-width:800px){
-        main { grid-template-columns: repeat(auto-fill, 150px); }
-        rect { stroke-width: 3px; }
-        text { font-size: 14px; }
-    }
-
-    @media(max-width:465px){
-        main { grid-template-columns: 1fr 1fr }
-        rect { stroke-width: 3px; }
-        text { font-size: 14px; }
-    }
-
-
-    #legend {
-        width: 100%;
-        margin-top: 30px;
-    }
-
-    #legend p {
-        color: grey;
-        margin: 5px 0;
-        font-size: 13px;
-        font-family: sans-serif;
-        display: flex;
-        align-items: center;
-    }
-
-    #legend p span {
-        display: inline-block;
-        width: 15px;
-        height: 15px;
-        margin-right: 5px;
-    }
-
-    text {
-        font-family: sans-serif;
-        font-size: 8px;
-    }
-
-    rect {
-            stroke-width: 1px;
-        }
-
-    *:focus {
-        outline: none;
-    }
-
-    #tip {
-        color:lightgray;
-    }
-
-    .calendar {
-        cursor: pointer
-    }
-
-    .tip-subtitle {
-        font-size: 12px;
-        font-family:sans-serif;
-        margin-bottom: 0;
-        line-height: 0;
-    }
-
-    p.tip-p {
-        font-family:sans-serif;
-        margin-top:0;
-        font-size: 13px;
-    }
-
-    .type-indicator {
-        display:inline-block; 
-        margin-left: 5px;
-        width:10px;
-        height:10px;
-         border-radius:50%;
-    }
-
-    #map {
-        width: 100%;
-        height: 100vh;
-    }
-
-   
-
-    #scroll {        
-        position: relative;
-        width: 100%;
-        margin: 0 auto 50px auto;    
-        display: grid;
-        grid-template-columns: 3fr 1.5fr;
-    }
-  
-  .scroll__graphic {        
-        width: 100%;  
-        position: -webkit-sticky;
-        position: sticky;
-        top: 0;
-        left: 1em;
-        max-height: 100vh;
-        z-index: -1; 
-        background-color: white;
-    }   
-
-    .scroll__text {         
-        width: 100%; 
-        max-width: 500px;   
-        margin-left: auto;
-        z-index: 100;
-        color: white;
-        position:relative;
-        background-color:rgba(18, 18, 18, 0.8)
-    }
-
-    .step {
-        width: 100%;
-        height: max-content;
-        min-height: 50px;
-        margin-bottom: 80vh;
-        font-family: sans-serif;
-        line-height: 1.6
-    } 
-
-    .step > div {
-        padding: 20px; 
-        /* background-color: rgba(255, 255, 255, 0.9); */
-    }
-
-    @media(max-width: 800px){
-        #map {
-            width: 100%;
-            height: 50vh;
-        }
-
-        #scroll {
-            display: block;
-        }
-
-        .scroll__graphic { 
-            z-index: 20;
-         }
-
-         .scroll__text {  
-            z-index: 10;
-        }
-
-        .step {
-            margin-bottom: 40vh;
-        }
-    }
+    <div class="share-article">
     
-   
-
-    .hightlited {
-        /* letter-spacing: 2px; */
-    }
-
-    .step img {
-        max-width: 95%;
-        
-    }
- 
-
-    .step .grid-wrapper {
-        display: grid;
-        margin: 10px 0;
-        grid-template-columns: 2.5fr 1fr;
-    }
-
-    figcaption {
-        font-size: 13px;
-    }
-
-    iframe {
-        margin: 20px 0;
-    }
-
-     .mapboxgl-popup-content {
-        line-height: 1.4;
-    }
-
-    video {
-    width: 100%;
-    max-height: 100%;
-}
-
-.show-popup {
-    background-color: #ff00ff97;
-    padding: 0 1px;
-    cursor: pointer;
-}
-
-.show-point-popup {
-    background-color: #08ccef97;
-    padding: 0 1px;
-    cursor: pointer;
-}
-
-a {
-    color: inherit;
-}
-
-   
-
-
-
-
-
-
-
-</style>
-
-<section id='scroll' class="desktop-only">
-    <div class='scroll__graphic sticky'>
-        <div id="map"></div>
+        <div class="sb fb"><a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https://texty.org.ua/d/principles/" target="_blank">
+            <img src="img/facebook.svg" alt="Тексти.org.ua - Facebook"></a>
+        </div>
+    
+        <div class="sb tw"><a class="share-btn" href="https://twitter.com/intent/tweet?text=https://texty.org.ua/d/principles/" target="_blank">
+            <img src="img/twitter.svg" alt="Тексти.org.ua - Twitter"></a>
+        </div>
+    
+        <div class="sb tl"><a class="share-btn" href="https://telegram.me/share/url?url=https://texty.org.ua/d/principles/" target="_blank">
+            <img src="img/telegram.svg" alt="Тексти.org.ua - Telegram"></a>
+        </div>
+    </div>
+    
+    <div id="title-wrapper">
+        <h1>ЯДЕРНИЙ ТЕРОР</h1>
+        <h3>Як Росія взяла в заручники <br>АЕС і енергодарців</h3>
     </div>
 
+    <!-- Calendar -->
+    <main>
+        <div id="legend">
+           <p><span style="border: 2px solid #5B1A1B; box-sizing: border-box;"></span>Захоплення міста</p>
+           <p><span style="background-color:#EA7C65;"></span>Шантаж і загроза ЗАЕС</p>
+           <p><span style="border-radius: 50%; background-color: #346294; transform: scale(0.7);"></span>Спротив енергодарців</p>
+           <p><span style="border-radius: 50%; background-color: red; transform: scale(0.7);"></span>Обстріли Енергодара</p>
+           <p><span style="border-radius: 50%; background-color: #74997F;"></span>Місія МАГАТЕ</p>
+           <p><span style="border-radius: 50%; background-color: #AD1A2A;"></span>Окупація та зміна інфопростору</p>
+        </div>
+    </main>
 
-    <div class='scroll__text'>
-        <div class="step" data-polygons='["r1", "r2", "r3", "r4", "r5", "r6"]' data-points='[]'>
-            <div>
-            <p><span class="hightlited">4 березня</span> 2022 року на Запорізькій атомній станції (ЗАЕС) у робочому стані перебував лише енергоблок <span class="show-popup" data-click="r4">№&nbsp;4.</span> Енергоблок
-                <span class="show-popup" data-click="r1"> №&nbsp;1</span> був на планово-попереджувальному ремонті.
-                Енергоблоки <span class="show-popup" data-click="r2">№&nbsp;2</span> і <span class="show-popup" data-click="r3">№&nbsp;3</span> — відімкнено від мережі та переведено в безпечний стан.
-                Енергоблоки <span class="show-popup" data-click="r5">№&nbsp;5</span> і <span class="show-popup" data-click="r6">№&nbsp;6</span> — переведено в безпечний стан.
-                </p>
-                <img src="img/zaporizka-aes_large.jpg"/>
-            </div>
-        </div>
+    <!-- Main text -->
+    <div class="text-wrapper">
+        <p class="lead">“Ми в безпеці, в нас АЕС, сюди не зайдуть, тут не стрілятимуть, з таким не жартують” — думали мешканці Енергодара. Але вони помилилися. Ми простежили, що відбувалося на ЗАЕС та в Енергодарі від часу захоплення міста.</p>
 
-        <div class="step" data-polygons='["r5", "r6", "d1", "d2", "d3", "d4", "d5", "d6", "electric"]'  data-points='[]'>
-            <div>
-            <p>Саме енергоблоки <span class="show-popup" data-click="r5">№&nbsp;5</span> і <span class="show-popup" data-click="r6">№&nbsp;6</span> регулярно відмикаються від енергомережі через російські обстріли ліній електропередач, і тоді спрацьовує останній запобіжник ядерної катастрофи — <span class="show-popup" data-click="d6">дизельні генератори</span>.
-                За час окупації ЗАЕС тричі було повністю знеструмлено: 25 серпня, 2 жовтня і 2 листопада. 
-                Наприкінці 2022 року всі шість реакторів Запорізької АЕС зупинено, але вони й досі споживають електроенергію з української енергосистеми. Росіяни блокують їх підключення.</p>
-            </div>
-        </div>
+        <p class="credits">Спільний проєкт <a href='https://texty.org.ua'> ТЕКСТІВ</a></a> та <a href='https://incentre.zp.ua/'>Запорізького центру розслідувань</a>.</p>
 
-        <div class="step" data-polygons='["training", "ad1", "r1"]'  data-points='["p3"]'>
-            <div>
-            <p>Опівночі з камери спостереження, розташованої в <span class="show-popup" data-click="ad1">адмінбудівлі</span> а на території ЗАЕС, почалася <a href="https://www.youtube.com/watch?v=fYUT36YGOh8&t=4882s" target="_blank"> пряма трансляція</a> захоплення станції російською армією. Камера пропрацювала кілька годин, доки росіяни захопили станцію.</p>
-            
-            
-            <p>Російський снаряд влучив в енергоблок <span class="show-popup" data-click="r1">№&nbsp;1</span> і пошкодив обшивку реактора. Два снаряди влучили поблизу сховища відпрацьованого ядерного палива, як повідомив Енергоатом.</p>
-                
-            <div class="grid-wrapper">
-                <img src="img/training_center.jpg"/>
-                <figcaption><span class="show-popup" data-click="training">Навчально-тренувальний центр ЗАЕС</span> після обстрілів російською армією</figcaption>
-            </div>
-            
-            <div class="image-wrapper">
-                <img src="img/rustank_znpp.jpeg"/>
-                <figcaption>Підбитий нацгвардійцями російський танк залишився на території станції. Гармата націлена на енергоблок № 1. Фото: Енергоатом</figcaption>
-            </div>
-                
-            </div>
-        </div>
+        <h2>Захоплення Енергодара</h2>
+        <p>Енергодар з’єднано із Запоріжжям єдиною асфальтованою дорогою вздовж Каховського водосховища до Василівки, там він з'єднується з трасою Харків — Сімферополь. Коли росіяни захопили Мелітополь, до Василівки їм залишалося 60 км. Як тільки вони її зайняли, Енергодар став приреченим. Інше угруповання російських військ рухалося з херсонського напрямку. </p>
+        <p>Працівники військкомату й поліція вийшли з Енергодара ще 25 лютого — добре, що забрали документи. У місті залишилося лише кілька десятків нацгвардійців, які охороняли ЗАЕС і патрулювали місто. Зброю для місцевої тероборони мали привезти із Запоріжжя тією самою єдиною дорогою з Василівки, проте не встигли. Частина тероборонівців поїхала зустрічати транспорт зі зброєю, отримала її й дала окупантам бій уже у Василівці. Потім вони обороняли Запоріжжя. </p>
+        <p>Уранці 26 лютого росіяни захопили село Велика Білозерка, що за 30 км на південь від Енергодара. </p>
+        <p>Місцеві жителі вирішили боронити Енергодар навіть без зброї: звели блокпост на в’їзді до міста. Упродовж трьох днів близько 10 тис. мешканців міста, за свідченням мера Енергодара Дмитра Орлова, виходили до блокпоста, щоб зупинити російську армію мирними протестами. Це майже всі дорослі, які залишалися в місті й не перебували на роботі (більшість з них працює на АЕС, ТЕС чи обслуговує цю інфраструктуру). </p>
+    </div>
 
-        <div class="step" data-polygons='["per1"]'  data-points='[]'>
-            <div>
-                <p><span class="hightlited">15 березня</span> керівник НАЕК “Енергоатом” Петро Котін заявив, що на <span class="show-popup" data-click="per1">території ЗАЕС</span> перебуває близько 400 російських військових, 50 одиниць техніки і багато вибухівки та зброї.
-                </p>
-        </div>
-        </div>
+    <div class="image-wrapper">
+        <img src="img/energodar-ludy.jpg"/>
+        <p class="image-caption">Енергодарці вийшли на шлях, що веде в місто, щоб зупинити російські війська. <br> Фото Дмитра Орлова</p>
+    </div>
 
-        <div class="step" data-polygons='["fort1", "fort2", "fort3", "fort4", "fort5", "fort6", "weap1", "security"]' data-points='[]'>
-            <div>
-                <p>Червневі супутникові знімки (з сайту Planet) свідчать, що російські військові звели <span class="show-popup" data-click="fort2">фортифікаційні споруди</span> навколо ЗАЕС. Про це <span class="hightlited">24 червня</span> також заявив мер Енергодара. Подальші знімки демонструють активне використання й розростання укріплень: у промзоні вздовж дороги з Енергодара до ЗАЕС, на узбережжі біля станції, біля пожежної частини. 
-                    <img src="img/29_10_planet.png"/>
-                    <figcaption>Супутниковий знімок Planet.com від 29 жовтня 22 р.</figcaption></p>
-            </div>
-        </div>
-
-        <div class="step" data-polygons='["pond1", "pond2"]' data-points='[]'>
-            <div>
-                <p><span class="hightlited">29 червня</span> російські військові закатували водолаза гідроцеху ЗАЕС Андрія Гончарука. Його змушували пірнати в <span class="show-popup" data-click="pond1">охолоджувальний басейн</span> ЗАЕС. Вимога — осушити охолоджувальний басейн нібито для перевірки його чаш щодо наявності закладеної раніше зброї — провокація, яку вигадали росіяни. 
-                </p>
-         </div>
-        </div>
+    <div class="text-wrapper">
+        <p>3 березня росіяни врешті почали стріляти по пікетувальниках і зайшли в місто, обстрілюючи дорогою цивільні будівлі в центрі Енергодара.</p>
+        <p>Увечері вони рушили на ЗАЕС.</p>
 
         
-        <div class="step" data-polygons='["hall1", "hall2", "hall3"]' data-points='[]'>
-            <div>
-                <p>Військові наказали адміністрації ЗАЕС відчинити <span class="show-popup" data-click="hall1">машинні зали</span> на енергоблоках № 1, № 2 і № 3, щоб розмістити там свій військовий арсенал. У машинній залі енергоблоку № 1 зібрано щонайменше 14 одиниць важкої військової техніки з боєкомплектом, зброя та вибухівка, як повідомив Енергоатом. Пізніше інформацію про розташування військових і боєкомлекту в машинних залах станції підтвердили джерела Insider на ЗАЕС і співрозмовник BBC — інженер, який працював там під час окупації.
-                </p>
+        <div class="spoiler">
+            <input id="toggle" type="checkbox" style="visibility:hidden">
+            <label for="toggle" class="ref"> Довідка </label>
+            <div class="box ref-text">
+                ЗАЕС — найбільша в Україні атомна електростанція з потужністю 6 гігават, що становить 45% потужностей української ядерної енергетики й понад 20% потужностей енергетичної системи України. Місто будували від 1970-го до 1980 року разом з тепловою й атомною електростанціями. На час повномасштабного вторгнення в ньому жило близько 50 тис. мешканців, з них близько 11 тис. працювали на ЗАЕС та інфраструктурних об’єктах, що обслуговували станцію. Під час російської окупації, за даними “Енергоатома”, на станції перебуває 3 тис. працівників. Щодня виходять на роботу 1400 співробітників. 
+             </div>
+        </div>
 
-                <div class="image-wrapper">
-                    <img src="img/weapon_hall.jpg"/>
-                    <figcaption>Фото МАГАТЕ</figcaption>
+        <p class="static-map-caption">Карта про захоплення Енергодара та ЗАЕС</p>
+    </div>
+
+    <!-- Static map -->
+    <img class='static-map' src="img/maps/road_map.jpg"/>
+
+    <div class="text-wrapper">
+        <h2>Найстрашніша у світі ніч </h2>
+        <p>У ніч на 4 березня 2022 року весь світ стежив за онлайн-трансляцією з камери спостереження, розташованої на одній з будівель ЗАЕС. У темряві палала пожежа. Ніхто не розумів, що відбувається й чи не станеться новий Чорнобиль.</p>
+        <p>Усю ніч над Енергодаром гуділа сирена. “Потім сказали, що ці сирени просто перегоріли під шосту ранку” — розповідає Ольга, місцева жителька. Цей моторошний звук і страх посилювала невідомість. Енергодарці стежили за загравою над станцією, знали, що пожежників туди не пускають, і думали про радіацію й опромінення. Бомбосховищ та укриттів у місті немає. На випадок аварії на станції в мирний час було передбачено евакуаційні автобуси.</p>
+        <p>З військових сил у місті стояв лише загін Нацгвардії, який охороняв АЕС і патрулював місто, бійці мали стрілецьку зброю, гранатомети та, “здається, один бронеавтомобіль «Козак»”, — згадує начальник цеху електричних мереж ВП ЗАЕС Іван Петухов.</p>
+        <p>Наші спробували дати бій.</p>
+        <p>“Росіяни просто «розкришили» навчально-тренувальний центр, звідки відстрілювалися нацгвардійці. Потім ударили з великокаліберної зброї по головному корпусу… просто показували свою силу”, — вів далі Петухов.</p>
+    </div>
+
+    <div class="image-wrapper">
+        <img src="img/scroll/training_center.jpg"/>
+        <p class="image-caption">Навчально-тренувальний центр ЗАЕС після нічного бою за ЗАЕС. <br> Фото: Енергоатом
+        </p>
+    </div>
+
+    <div class="text-wrapper">
+        <p>За свідченнями одного з місцевих активістів, під час штурму ЗАЕС загинуло троє бійців Нацгвардії з її охоронного загону і ще п'ятьох-шістьох було поранено. 30-40 осіб захопив у полон інгушський СОБР — саме вони атакували станцію. Місцеві розповідають, що полонених вивезли в посадку неподалік, роздягли до білизни, постріляли над головами, взяли розписку, що ті більше не воюватимуть, і відпустили в Енергодар. Комусь із них вдалося вибратися на підконтрольну Україні територію, когось захопили в полон і вивезли в Крим пізніше — вже з Енергодара.</p>
+        <p>Строковиків НГУ, які патрулювали місто, окупанти теж захопили в полон і спочатку використовували на громадських роботах, а потім вивезли в Крим. Їх повернули під час обміну 22 листопада.</p>
+        <p>Тієї ночі вигоріли другий, третій і четвертий поверхи навчально-тренувального центру поблизу ЗАЕС. Пожежникам дозволили загасити пожежу лише через кілька годин, це вдалося зробити о 6 ранку 4 березня.</p>
+        <p>З цього бою почалася історія ядерного шантажу, який здійснює Росія. Територія ЗАЕС стала гарнізоном, де розміщено близько 500 російських військових, важку техніку та боєприпаси. Зі станції росіяни обстрілюють вільні українські території. Заручниками армії РФ стали 3 тис. працівників станції та близько 20 тис. жителів Енергодара, який росіяни обстрілюють задля провокацій. </p>
+        <p>Наприклад, про одну з російських атак під чужим прапором, у яких Росія звинуватила ЗСУ, 12 липня повідомив у своєму звіті Інститут вивчення війни (ISW).</p>
+        <p>Росіяни тероризують український персонал станції: змушують підписувати контракти з Росатомом, викрадають, катують, убивають. Найбільшу небезпеку сьогодні становить регулярне відімкнення ЗАЕС від української енергомережі після російських обстрілів ліній електропередач. Дизельні генератори тоді стають останніми запобіжниками ядерної катастрофи.</p>
+
+        <h2>“Енергодар – це Україна!”</h2>
+        <p>Упродовж березня 2022 року тисячі енергодарців регулярно виходили на вулиці вже окупованого міста на мітинги під українськими прапорами. Масові демонстрації відбулися 9 березня, в день народження Тараса Шевченка, 20 і 28 березня, а також 2 квітня — на підтримку України та в знак протесту проти викрадення заступника мера міста Івана Самойдюка.</p>
+    </div>
+
+    <div class="image-wrapper">
+        <img src="img/energodar_20_03.jpg"/>
+        <p class="image-caption">Мітинг в Енергодарі 20 березня. <br> Фото: Дмитро Орлов
+        </p>
+    </div>
+
+    <div class="text-wrapper">
+        <p>2 квітня солдати Росгвардії почали хапати й тягнути мітингарів до автозаків та обстрілювати зібрання з мінометів.</p>
+        <p>Після встановлення окупаційної влади російські спецслужби шукали й викрадали учасників демонстрацій. У цьому їм допомагали місцеві колаборанти.</p>
+
+        <h2>Події на ЗАЕС</h2>
+    </div>
+  
+
+    <!-- scrollytelling part -->
+    <section id='scroll' class="desktop-only">
+        <div class='scroll__graphic sticky'>
+            <div id="map"></div>
+        </div>
+
+
+        <div class='scroll__text'>
+            <div class="step" data-polygons='["r1", "r2", "r3", "r4", "r5", "r6"]' data-points='[""]'>
+                <div>
+                <p><span class="hightlited">4 березня</span> 2022 року на Запорізькій атомній станції (ЗАЕС) у робочому стані перебував лише енергоблок <span class="show-popup" data-click="r4">№&nbsp;4.</span> Енергоблок
+                    <span class="show-popup" data-click="r1"> №&nbsp;1</span> був на планово-попереджувальному ремонті.
+                    Енергоблоки <span class="show-popup" data-click="r2">№&nbsp;2</span> і <span class="show-popup" data-click="r3">№&nbsp;3</span> — відімкнено від мережі та переведено в безпечний стан.
+                    Енергоблоки <span class="show-popup" data-click="r5">№&nbsp;5</span> і <span class="show-popup" data-click="r6">№&nbsp;6</span> — переведено в безпечний стан.
+                    </p>
+                    <img src="img/scroll/zaporizka-aes_large.jpg"/>
                 </div>
-         </div>
-        </div>
-
-        
-        <div class="step" data-polygons='["r1", "hall1"]' data-points='["p1", "p4"]'>
-            <div>
-                <p><span class="hightlited">22 липня</span> український дрон-камікадзе завдав удару по російському військовому <span class="show-point-popup" data-click="p1">наметовому містечку</span> та <span class="show-point-popup" data-click="p4">техніці</span>, розташованим навпроти енергоблоку № 1. Влучив у три зенітні установки та БМ-21 "Град". Троє військових загинули, 12 було травмовано. <br>
-                <iframe width="100%" height="315" src="https://www.youtube.com/embed/F9QmY0RKx8M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                   
-                </p>
             </div>
-        </div>
 
+            <div class="step" data-polygons='["r5", "r6", "d1", "d2", "d3", "d4", "d5", "d6", "electric"]'  data-points='[""]'>
+                <div>
+                <p>Саме енергоблоки <span class="show-popup" data-click="r5">№&nbsp;5</span> і <span class="show-popup" data-click="r6">№&nbsp;6</span> регулярно відмикаються від енергомережі через російські обстріли ліній електропередач, і тоді спрацьовує останній запобіжник ядерної катастрофи — <span class="show-popup" data-click="d6">дизельні генератори</span>.
+                    За час окупації ЗАЕС тричі було повністю знеструмлено: 25 серпня, 2 жовтня і 2 листопада. 
+                    Наприкінці 2022 року всі шість реакторів Запорізької АЕС зупинено, але вони й досі споживають електроенергію з української енергосистеми. Росіяни блокують їх підключення.</p>
+                </div>
+            </div>
+
+            <div class="step" data-polygons='["training", "ad1", "r1"]'  data-points='["p3"]'>
+                <div>
+                <p>Опівночі з камери спостереження, розташованої в <span class="show-popup" data-click="ad1">адмінбудівлі</span> а на території ЗАЕС, почалася <a href="https://www.youtube.com/watch?v=fYUT36YGOh8&t=4882s" target="_blank"> пряма трансляція</a> захоплення станції російською армією. Камера пропрацювала кілька годин, доки росіяни захопили станцію.</p>
+                
+                
+                <p>Російський снаряд влучив в енергоблок <span class="show-popup" data-click="r1">№&nbsp;1</span> і пошкодив обшивку реактора. Два снаряди влучили поблизу сховища відпрацьованого ядерного палива, як повідомив Енергоатом.</p>
+                
+                <div class="scroll-image-wrapper">
+                    <img src="img/scroll/rustank_znpp.jpeg"/>
+                    <figcaption>Підбитий нацгвардійцями російський танк залишився на території станції. Гармата націлена на енергоблок № 1. Фото: Енергоатом</figcaption>
+                </div>
+                    
+                </div>
+            </div>
+
+            <div class="step" data-polygons='["per1"]'  data-points='[""]'>
+                <div>
+                    <p><span class="hightlited">15 березня</span> керівник НАЕК “Енергоатом” Петро Котін заявив, що на <span class="show-popup" data-click="per1">території ЗАЕС</span> перебуває близько 400 російських військових, 50 одиниць техніки і багато вибухівки та зброї.
+                    </p>
+            </div>
+            </div>
+
+            <div class="step" data-polygons='["fort1", "fort2", "fort3", "fort4", "fort5", "fort6", "weap1", "security"]' data-points='[""]'>
+                <div>
+                    <p>Червневі супутникові знімки (з сайту Planet) свідчать, що російські військові звели <span class="show-popup" data-click="fort2">фортифікаційні споруди</span> навколо ЗАЕС. Про це <span class="hightlited">24 червня</span> також заявив мер Енергодара. Подальші знімки демонструють активне використання й розростання укріплень: у промзоні вздовж дороги з Енергодара до ЗАЕС, на узбережжі біля станції, біля пожежної частини. 
+                    <img src="img/scroll/29_10_planet.png"/>
+                    <figcaption>Супутниковий знімок Planet.com від 29 жовтня 22 р.</figcaption></p>
+                </div>
+            </div>
+
+            <div class="step" data-polygons='["pond1", "pond2"]' data-points='[""]'>
+                <div>
+                    <p><span class="hightlited">29 червня</span> російські військові закатували водолаза гідроцеху ЗАЕС Андрія Гончарука. Його змушували пірнати в <span class="show-popup" data-click="pond1">охолоджувальний басейн</span> ЗАЕС. Вимога — осушити охолоджувальний басейн нібито для перевірки його чаш щодо наявності закладеної раніше зброї — провокація, яку вигадали росіяни. 
+                    </p>
+            </div>
+            </div>
+
+            
+            <div class="step" data-polygons='["hall1", "hall2", "hall3"]' data-points='[""]'>
+                <div>
+                    <p>Військові наказали адміністрації ЗАЕС відчинити <span class="show-popup" data-click="hall1">машинні зали</span> на енергоблоках № 1, № 2 і № 3, щоб розмістити там свій військовий арсенал. У машинній залі енергоблоку № 1 зібрано щонайменше 14 одиниць важкої військової техніки з боєкомплектом, зброя та вибухівка, як повідомив Енергоатом. Пізніше інформацію про розташування військових і боєкомлекту в машинних залах станції підтвердили джерела Insider на ЗАЕС і співрозмовник BBC — інженер, який працював там під час окупації.
+                    </p>
+                    <img src="img/scroll/weapon_hall.jpg"/>
+                    <figcaption>Фото МАГАТЕ</figcaption>
+                   
+            </div>
+            </div>
+
+            
+            <div class="step" data-polygons='["r1", "hall1"]' data-points='["p1", "p4"]'>
+                <div>
+                    <p><span class="hightlited">22 липня</span> український дрон-камікадзе завдав удару по російському військовому <span class="show-point-popup" data-click="p1">наметовому містечку</span> та <span class="show-point-popup" data-click="p4">техніці</span>, розташованим навпроти енергоблоку № 1. Влучив у три зенітні установки та БМ-21 "Град". Троє військових загинули, 12 було травмовано. <br>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/F9QmY0RKx8M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    
+                    </p>
+                </div>
+            </div>
+
+            
+            <div class="step" data-polygons='["hall1", "r1", "est", "weap1"]' data-points='[""]'>
+                <div>
+                    <p><span class="hightlited">5 серпня</span> The Insider <a href="https://youtu.be/dQ_Gua00oiI" target="_blank">оприлюднив відео</a> з доказами переміщення військової техніки біля реакторів.<br> 
+                        Також розслідувачі з посиланням на джерела повідомили про замінування машинної зали енергоблоку № 1 і території навколо ЗАЕС; про  розміщення “Градів” поблизу села Водяне; про боєприпаси, що зберігаються біля енергоблоків, усередині й під естакадами.</p>
+                        <div class="scroll-image-wrapper">
+                            <img src="img/scroll/insider.jpg"/>
+                            <figcaption></figcaption>
+                        </div>
         
-        <div class="step" data-polygons='["hall1", "r1", "est", "weap1"]' data-points='[]'>
-            <div>
-                <p><span class="hightlited">5 серпня</span> The Insider <a href="https://youtu.be/dQ_Gua00oiI" target="_blank">оприлюднив відео</a> з доказами переміщення військової техніки біля реакторів.<br> 
-                    Також розслідувачі з посиланням на джерела повідомили про замінування машинної зали енергоблоку № 1 і території навколо ЗАЕС; про  розміщення “Градів” поблизу села Водяне; про боєприпаси, що зберігаються біля енергоблоків, усередині й під естакадами.</p>
-                    <div class="image-wrapper">
-                        <img src="img/insider.jpg"/>
+                </div>
+            </div>
+
+            
+            <div class="step" data-polygons='["est","corp2", "grad"]' data-points='[""]'>
+                <div>
+                    <p>Про <span class="show-popup" data-click="est">естакади</span>, під якими росіяни зберігали військову техніку, <a href="https://www.bbc.com/ukrainian/features-62532425" target="_blank"> згадував в анонімному інтерв’ю BBC</a> один з інженерів станції. “Наприклад, під естакадою біля <span class="show-popup" data-click="corp2">спецкорпусу № 2</span> іноді стоять БМ «Град» з боєкомплектом”, — повідомив він. Також розповів, що бачив російські артилерійські установки на <span class="show-popup" data-click="grad">майданчику</span>, де зберігаються важкі металеві конструкції, як-от свіжі парогенератори. </p>
+                    <div class="scroll-image-wrapper">
+                        <img src="img/scroll/maxar_est.jfif"/>
                         <figcaption></figcaption>
                     </div>
-    
-            </div>
-        </div>
 
-        
-        <div class="step" data-polygons='["est","corp2", "grad"]' data-points='[]'>
-            <div>
-                <p>Про <span class="show-popup" data-click="est">естакади</span>, під якими росіяни зберігали військову техніку, <a href="https://www.bbc.com/ukrainian/features-62532425" target="_blank"> згадував в анонімному інтерв’ю BBC</a> один з інженерів станції. “Наприклад, під естакадою біля <span class="show-popup" data-click="corp2">спецкорпусу № 2</span> іноді стоять БМ «Град» з боєкомплектом”, — повідомив він. Також розповів, що бачив російські артилерійські установки на <span class="show-popup" data-click="grad">майданчику</span>, де зберігаються важкі металеві конструкції, як-от свіжі парогенератори. </p>
-                <div class="image-wrapper">
-                    <img src="img/maxar_est.jfif"/>
-                    <figcaption></figcaption>
-                </div>
-
-            </div>
-        </div>
-
-        
-        <div class="step" data-polygons='["electric"]' data-points='[]'>
-            <div>
-                <p><span class="hightlited">5 серпня</span> почалися обстріли ЗАЕС, націлені на знищення енергетичної інфраструктури, що поєднує станцію з українською енергомережею. О 14:30 було зафіксовано влучання у високовольтну лінію зв’язку 330 кВ ВРП <span class="show-popup" data-click="electric">автотрансформатора ЗАЕС</span>, повідомила Запорізька ТЕС.</p>
-            </div>
-        </div>
-
-        
-        <div class="step" data-polygons='["dry"]' data-points='["p2"]'>
-            <div>
-                <p>6 серпня  Енергоатом повідомив про <span class="show-point-popup" data-click="p2">влучання</span> російських боєприпасів по майданчику ЗАЕС поблизу <span class="show-popup" data-click="dry">сухого сховища відпрацьованого ядерного палива</span>(ССВЯП), витік якого може спричинити екологічну катастрофу. У сховищі зберігається 174 контейнери по 24 збірки відпрацьованого ядерного палива. Через обстріли пошкоджено датчики радіаційного моніторингу, що мають сповіщати про витік радіації.</p>
-            </div>
-        </div>
-
-        
-        <div class="step" data-polygons='["hall1", "ad1", "r1"]' data-points='[]'>
-            <div>
-                <p>Обстріл ЗАЕС: Енергоатом повідомляє про п’ять “прильотів” у районі комендатури станції — неподалік дільниці зварки та сховища джерел випромінювання. Пошкоджено насосну станцію господарсько-побутових стоків. </p>
-                <video src="video/file2.mp4" type="video/mp4" controls></video>   
-
-            </div>
-        </div>
-
-        
-        <div class="step" data-polygons='["r1", "r2", "hall1", "hall2", "est"]' data-points='[]'>
-            <div>
-                <p><span class="hightlited">22 серпня</span> до ремонтної зони станції росіяни додатково завезли два БТР та шість спецвантажівок, повідомляє Енергоатом.
-                    Загалом на території станції було дислоковано понад 40 одиниць військової техніки. Біля <span class="show-popup" data-click="r1">енергоблоку № 1</span> — 16, біля <span class="show-popup" data-click="r2">№ 2</span> — 7. Ще 12 загнали під естакаду.</p>
-            </div>
-        </div>
-
-        
-        <div class="step" data-polygons='["r5", "r6", "electric"]' data-points='[]'>
-            <div>
-                <p><span class="hightlited">25 серпня</span> ЗАЕС уперше повністю вимкнули.
-                    Унаслідок пошкодження повітряної лінії ПЛ-750 кВ “Дніпровська” вимкнено енергоблоки <span class="show-popup" data-click="r5">№ 5</span> і <span class="show-popup" data-click="r6">№ 6</span>. </p>
-            </div>
-        </div>
-
-        
-        <div class="step" data-polygons='["corp1", "corp2", "est"]' data-points='[]'>
-            <div>
-                <p><span class="hightlited">26 серпня</span> снарядом пробито дах  <span class="show-popup" data-click="corp1">спецкорпусу № 1</span>, є влучання неподалік  <span class="show-popup" data-click="corp2">спецкорпусу № 2</span> та естакади.</p>
-                <div class="image-wrapper">
-                    <img src="img/maxar 29.08_2.jfif"/>
-                    <figcaption></figcaption>
                 </div>
             </div>
-        </div>
-        
-        <div class="step" data-polygons='["dry"]' data-points='["p2"]'>
-            <div>
-                <p><span class="hightlited">1 вересня</span> представник росіян пояснив директору МАГАТЕ Рафаелю Гроссі, що снаряд у мить приземлення розвертається на 180 градусів навколо своєї осі, тому він стирчить із землі так, ніби прилетів з окупованої росіянами території.</p>
 
-                <video src="video/file.mp4" type="video/mp4" controls></video>   
-            </div>
-        </div>
-
-        
-        <div class="step" data-polygons='["per1"]' data-points='[]'>
-            <div>
-                <p><span class="hightlited">У ніч з 2 на 3 вересня</span> росіяни обстрілювали Нікополь з локації, близької до ЗАЕС, про що свідчить <a href="https://youtu.be/6jSQw35mJrA" target="_blank">відео, оприлюднене The Insider</a> .
-                     </p>
-            </div>
-        </div>
-
-        
-        <div class="step" data-polygons='["r6", "st1"]' data-points='[]'>
-            <div>
-                <p>Вибух міни на периметрі ЗАЕС. 
-                    <span class="hightlited">29 вересня</span> на лінії подачі напруги на <span class="show-popup" data-click="st1">азотно-кисневу станцію</span> від енергоблоку <span class="show-popup" data-click="r6">№ 6</span> стався вибух. “Причина в тому, що периметр ЗАЕС заміновано російськими військовими, — повідомляє Енергоатом. — Уже було шість випадків, коли на мінах підривалися собаки, лисиці й дикі кабани”.</p>
-            </div>
-        </div>
-
-        
-        <div class="step" data-polygons='["hole"]' data-points='[]'>
-            <div>
-                <p><span class="hightlited">30 вересня</span> росіяни викрали гендиректора ЗАЕС Ігоря Мурашова й завезли його до катівні “Яма” (за повідомленням The Wall Street Journal). Його звільнили з полону 3 жовтня завдяки широкому розголосу та втручанню гендиректора МАГАТЕ.</p>
-                <div class="image-wrapper">
-                    <img src="img/murashov.jpg"/>
-                    <figcaption></figcaption>
-                </div>
-            </div>
-        </div>
-
-        
-        <div class="step" data-polygons='["pond"]' data-points='[]'>
-            <div>
-                <p><span class="hightlited">26 жовтня</span> стало відомо, що в <span class="show-popup" data-click="pond">охолоджувальному басейні</span> від переохолодження загинула риба, яка виконувала санітарну функцію та забезпечувала чистоту охолоджувальних трубок конденсатора турбіни. Тепла вода не потрапляє у ставок-охолоджувач через зупинку ЗАЕС.</p>
-            </div>
-        </div>
-
-        
-        <div class="step" data-polygons='["per1", "r5", "r6", "d1", "d2", "d3", "d4", "d5", "d6"]' data-points='[]'>
-            <div>
-                <p><span class="hightlited">2 листопада</span> ЗАЕС було знеструмлено через обстріли високовольтних ліній зв’язку з українською енергосистемою, почали працювати дизель-генератори. Енергоблоки № 5 і  № 6 переведено в холодний стан.</p>
-            </div>
-        </div>
-
-        <div class="step" data-polygons='["dry", "r6", "corp2"]' data-points='["p6"]'>
-            <div>
-                <p><span class="hightlited">7 грудня</span> Енергоатом повідомив, що росіяни розмістили кілька реактивних систем залпового вогню <span class="show-point-popup" data-click="p6">(РСЗВ) “Град”</span> біля енергоблока № 6, поруч із територією станційного <span class="show-popup" data-click="dry">сухого сховища відпрацьованого ядерного палива</span>, де раніше в таємному режимі будували деякі “захисні споруди”. </p>
-            </div>
-        </div>
-
-        <div class="step" data-polygons='[""]' data-points='[""]'>
-            <div>
-                <p>"На станції тривають роботи з випробування та введення в експлуатацію пересувних котлів на дизельному пальному, щоб запобігти замерзанню критичних систем ЗАЕС у зимовий період", — ідеться у звіті МАГАТЕ за 13 грудня. Мобільні дизельні котли потужністю 1-3 МВт встановлені та працюють на одному з енергоблоків, ще декілька розміщено в інших місцях на майданчику. </p>
-            </div>
-        </div>
-
-        <div class="step" style="margin-bottom: 0" data-polygons='[]' data-points='[]'>
-            <p></p>
             
+            <div class="step" data-polygons='["electric"]' data-points='[""]'>
+                <div>
+                    <p><span class="hightlited">5 серпня</span> почалися обстріли ЗАЕС, націлені на знищення енергетичної інфраструктури, що поєднує станцію з українською енергомережею. О 14:30 було зафіксовано влучання у високовольтну лінію зв’язку 330 кВ ВРП <span class="show-popup" data-click="electric">автотрансформатора ЗАЕС</span>, повідомила Запорізька ТЕС.</p>
+                </div>
+            </div>
+
+            
+            <div class="step" data-polygons='["dry"]' data-points='["p2"]'>
+                <div>
+                    <p>6 серпня  Енергоатом повідомив про <span class="show-point-popup" data-click="p2">влучання</span> російських боєприпасів по майданчику ЗАЕС поблизу <span class="show-popup" data-click="dry">сухого сховища відпрацьованого ядерного палива</span>(ССВЯП), витік якого може спричинити екологічну катастрофу. У сховищі зберігається 174 контейнери по 24 збірки відпрацьованого ядерного палива. Через обстріли пошкоджено датчики радіаційного моніторингу, що мають сповіщати про витік радіації.</p>
+                </div>
+            </div>
+
+            
+            <div class="step" data-polygons='["hall1", "ad1", "r1"]' data-points='[""]'>
+                <div>
+                    <p>Обстріл ЗАЕС: Енергоатом повідомляє про п’ять “прильотів” у районі комендатури станції — неподалік дільниці зварки та сховища джерел випромінювання. Пошкоджено насосну станцію господарсько-побутових стоків. </p>
+                    <video src="video/file2.mp4" type="video/mp4" controls></video> 
+                    <figcaption>Джерело відео: <a href='https://edition.cnn.com/2022/08/19/europe/ukraine-zaporizhzhia-nuclear-plant-russian-vehicles-intl-hnk/index.html'>CNN</a></figcaption>
+
+                </div>
+            </div>
+
+            
+            <div class="step" data-polygons='["r1", "r2", "hall1", "hall2", "est"]' data-points='[""]'>
+                <div>
+                    <p><span class="hightlited">22 серпня</span> до ремонтної зони станції росіяни додатково завезли два БТР та шість спецвантажівок, повідомляє Енергоатом.
+                        Загалом на території станції було дислоковано понад 40 одиниць військової техніки. Біля <span class="show-popup" data-click="r1">енергоблоку № 1</span> — 16, біля <span class="show-popup" data-click="r2">№ 2</span> — 7. Ще 12 загнали під естакаду.</p>
+                </div>
+            </div>
+
+            
+            <div class="step" data-polygons='["r5", "r6", "electric"]' data-points='[""]'>
+                <div>
+                    <p><span class="hightlited">25 серпня</span> ЗАЕС уперше повністю вимкнули.
+                        Унаслідок пошкодження повітряної лінії ПЛ-750 кВ “Дніпровська” вимкнено енергоблоки <span class="show-popup" data-click="r5">№ 5</span> і <span class="show-popup" data-click="r6">№ 6</span>. </p>
+                </div>
+            </div>
+
+            
+            <div class="step" data-polygons='["corp1", "corp2", "est"]' data-points='[""]'>
+                <div>
+                    <p><span class="hightlited">26 серпня</span> снарядом пробито дах  <span class="show-popup" data-click="corp1">спецкорпусу № 1</span>, є влучання неподалік  <span class="show-popup" data-click="corp2">спецкорпусу № 2</span> та естакади.</p>
+                    <div class="scroll-image-wrapper">
+                        <img src="img/scroll/maxar 29.08_2.jfif"/>
+                        <figcaption></figcaption>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="step" data-polygons='["dry"]' data-points='["p2"]'>
+                <div>
+                    <p><span class="hightlited">1 вересня</span> представник росіян пояснив директору МАГАТЕ Рафаелю Гроссі, що снаряд у мить приземлення розвертається на 180 градусів навколо своєї осі, тому він стирчить із землі так, ніби прилетів з окупованої росіянами території.</p>
+
+                    <video src="video/file.mp4" type="video/mp4" controls></video>   
+                </div>
+            </div>
+
+            
+            <div class="step" data-polygons='["per1"]' data-points='[""]'>
+                <div>
+                    <p><span class="hightlited">У ніч з 2 на 3 вересня</span> росіяни обстрілювали Нікополь з локації, близької до ЗАЕС, про що свідчить <a href="https://youtu.be/6jSQw35mJrA" target="_blank">відео, оприлюднене The Insider</a> .
+                        </p>
+                </div>
+            </div>
+
+            
+            <div class="step" data-polygons='["r6", "st1"]' data-points='[""]'>
+                <div>
+                    <p>Вибух міни на периметрі ЗАЕС. 
+                        <span class="hightlited">29 вересня</span> на лінії подачі напруги на <span class="show-popup" data-click="st1">азотно-кисневу станцію</span> від енергоблоку <span class="show-popup" data-click="r6">№ 6</span> стався вибух. “Причина в тому, що периметр ЗАЕС заміновано російськими військовими, — повідомляє Енергоатом. — Уже було шість випадків, коли на мінах підривалися собаки, лисиці й дикі кабани”.</p>
+                </div>
+            </div>
+
+            
+            <div class="step" data-polygons='["hole"]' data-points='[""]'>
+                <div>
+                    <p><span class="hightlited">30 вересня</span> росіяни викрали гендиректора ЗАЕС Ігоря Мурашова й завезли його до катівні “Яма” (за повідомленням The Wall Street Journal). Його звільнили з полону 3 жовтня завдяки широкому розголосу та втручанню гендиректора МАГАТЕ.</p>
+                    <div class="scroll-image-wrapper">
+                        <img src="img/scroll/murashov.jpg"/>
+                        <figcaption></figcaption>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="step" data-polygons='["pond"]' data-points='[""]'>
+                <div>
+                    <p><span class="hightlited">26 жовтня</span> стало відомо, що в <span class="show-popup" data-click="pond">охолоджувальному басейні</span> від переохолодження загинула риба, яка виконувала санітарну функцію та забезпечувала чистоту охолоджувальних трубок конденсатора турбіни. Тепла вода не потрапляє у ставок-охолоджувач через зупинку ЗАЕС.</p>
+                </div>
+            </div>
+
+            
+            <div class="step" data-polygons='["per1", "r5", "r6", "d1", "d2", "d3", "d4", "d5", "d6"]' data-points='[""]'>
+                <div>
+                    <p><span class="hightlited">2 листопада</span> ЗАЕС було знеструмлено через обстріли високовольтних ліній зв’язку з українською енергосистемою, почали працювати дизель-генератори. Енергоблоки № 5 і  № 6 переведено в холодний стан.</p>
+                </div>
+            </div>
+
+            <div class="step" data-polygons='["dry", "r6", "corp2"]' data-points='["p6"]'>
+                <div>
+                    <p><span class="hightlited">7 грудня</span> Енергоатом повідомив, що росіяни розмістили кілька реактивних систем залпового вогню <span class="show-point-popup" data-click="p6">(РСЗВ) “Град”</span> біля енергоблока № 6, поруч із територією станційного <span class="show-popup" data-click="dry">сухого сховища відпрацьованого ядерного палива</span>, де раніше в таємному режимі будували деякі “захисні споруди”. </p>
+                </div>
+            </div>
+
+            <div class="step" data-polygons='[""]' data-points='[""]'>
+                <div>
+                    <p>"На станції тривають роботи з випробування та введення в експлуатацію пересувних котлів на дизельному пальному, щоб запобігти замерзанню критичних систем ЗАЕС у зимовий період", — ідеться у звіті МАГАТЕ за 13 грудня. Мобільні дизельні котли потужністю 1-3 МВт встановлені та працюють на одному з енергоблоків, ще декілька розміщено в інших місцях на майданчику. </p>
+                </div>
+            </div>
+
+            <div class="step" style="margin-bottom: 0" data-polygons='[]' data-points='[]'>
+                <p></p>
+            </div>
         </div>
+    </section>
 
-        
+<div class="text-wrapper">
+    <h2>Обстріли Нікополя з Енергодара</h2>
+    <p>З середини березня 2022 року російська армія почала обстрілювати населені пункти на протилежному від станції березі Дніпра, користуючись територією ЗАЕС як щитом. Експерти Conflict Intelligence Team підтвердили, що ракетний обстріл здійснюють з території в районі ЗАЕС. </p>
 
+    <!-- TODO: ще одна карта -->
+
+    <h2>Обстріли ЗАЕС</h2>
+    <p>Коли російська армія захопила атомну електростанцію, вона порушила міжнародні домовленості про невикористання ядерних об’єктів у воєнних цілях.</p>
+    <p>Тепер Росія звинувачує Україну в обстрілах ЗАЕС, але не надає неспростовних доказів, категорично відмовляється демілітаризувати станцію та створити навколо ЗАЕС зону безпеки.</p>
+</div>
+
+<div class="image-wrapper">
+    <img src="img/magate.jpg"/>
+    <p class="image-caption">1 вересня 2022 року. Представник росіян переконує гендиректора МАГАТЕ, що уламок снаряда, який стирчить на території ЗАЕС поблизу сховища відпрацьованого ядерного палива, випустила українська армія, але при приземленні він розвернувся на 180 градусів і саме тому схоже на те, наче прилетів з окупованої російською армією території. <br>Скріншот з відео, оприлюдненого Андрієм Цаплієнком.</p>
+</div>
+
+<div class="text-wrapper">
+    <p>Супутникові знімки свідчать про розростання бойових позицій навколо ЗАЕС упродовж літа-осені 2022 року. Працівники станції, які залишилися там працювати або виїхали вже після захоплення її росіянами, анонімно розповідають про розміщення російських вогневих позицій, військової техніки, солдат і боєприпасів на території ЗАЕС. Джерело ТЕКСТІВ стверджує, що росіяни зайняли майже всі приміщення на території станції, постійно переміщують і маскують свою техніку</p>
+    <p>Регулярні обстріли ЗАЕС почалися 5 серпня 2022 року. Вони спрямовані на руйнування високовольтних ліній, що пов’язували ЗАЕС з українською системою. А також на створення “картинки” для російської пропаганди про нібито українські обстріли. Працівники станції розповідають, що росіяни попередньо детально з’ясовували, як працює станція і що де розташовано. Щоб бити так, аби обстріли не завдавали станції реальної шкоди — окрім руйнування згаданих вище електромереж.</p>
+    <p>Чому б ці мережі просто не демонтувати, адже вони йдуть по окупованій росіянами території? Для Росії важливий пропагандистський чинник і обстріли, природу яких спостерігачам із віддалених столиць установити важко — це стає вдалим приводом в усьому звинувачувати Україну.  </p>
+    <p>До 8 серпня після обстрілів уціліла лише одна з трьох таких ліній — “Дніпровська”, перекинута через Каховське водосховище.</p>
+
+    <h2>Перемкнути ЗАЕС на Крим</h2>
+    <p>Вони провокують “блекаут” на станції, щоб потім “урятувати” АЕС від масштабної аварії — через підключення до російської енергосистеми.</p>
+    <p>“Лише впродовж серпня третій енергоблок тричі аварійно зупинявся і його тричі запускали — без обстежень, без з'ясування причин зупинок і висновків, як того вимагають регламенти”, — розповідає Ольга Кошарна, ексчленкиня Колегії Державної інспекції ядерного регулювання України. Аварійні відключення після обстрілів ліній електропередач тривали всю осінь.</p>
+    <p>Про плани “інтегрувати” не лише ЗАЕС, а й Каховську ГЕС та всю сонячну й вітрогенерацію на окупованих територіях ще у травні говорив заступник голови уряду Росії Марат Хуснуллін під час візиту до окупованого тоді Херсона. Також він згадував про відновлення підірваної ще у 2015 році єдиної магістральної високовольтної лінії, що пролягає через Джанкой і через ЗАЕС могла б постачати електроенергію до окупованого Криму.</p>
+
+    <div class="spoiler">
+        <input id="toggle2" type="checkbox" style="visibility:hidden">
+        <label for="toggle2" class="ref"> Довідка </label>
+        <div class="box2 ref-text">
+            ЗАЕС з’єднано з українською енергосистемою через чотири високовольтні лінії електропередач на 750 кіловольт. На початок обстрілів працювало дві високовольтні лінії: "ЗАЕС — Дніпро", яка йде через Каховське водосховище в бік Нікополя, та “Каховська”, що веде до підстанції “Каховська”. Ця лінія — довгобуд, її здали лише наприкінці 2020 року, щоб отримувати більше потужності з АЕС. До побудови цієї підстанції ЗАЕС не працювала на повну потужність, бо не було достатньої кількості ЛЕП на 750 кВ, щоб приймати увесь обсяг електроенергії з шести енергоблоків, які працюють одночасно. 
+
+         </div>
     </div>
-</section>
 
-<main>
-    <div id="legend">
-       <p><span style="border: 2px solid #5B1A1B;"></span>Захоплення міста</p>
-       <p><span style="background-color:#CF6162;"></span>Шантаж і загроза ЗАЕС</p>
-       <p><span style="border-radius: 50%; background-color: #346294; transform: scale(0.7);"></span>Спротив енергодарців</p>
-       <p><span style="border-radius: 50%; background-color: red; transform: scale(0.7);"></span>Обстріли Енергодара</p>
-       <p><span style="border-radius: 50%; background-color: #74997F;"></span>Місія МАГАТЕ</p>
-       <p><span style="border-radius: 50%; background-color: #5B1A1B;"></span>Окупація та зміна інфопростору</p>
+    <p class="static-map-caption">Карта енергомережі навколо ЗАЕС</p>
+</div>
 
-    </div>
-    
-</main>
+<!-- Static map -->
+<img class="static-map" src="img/maps/net_map.jpg"/>
+
+<div class="text-wrapper">
+    <h2>Обстріли ліній електропередач критично небезпечні</h2>
+    <p>Для підтримання АЕС у безпечному стані необхідна електроенергія, адже навіть із виключених енергоблоків потрібно завжди відводити тепло, яке є наслідком ядерної реакції. Інакше нутрощі почнуть плавитися, може статися водневий вибух — те, що спричинило аварію на Фукусімі. Тому обстріли ліній електропередач можуть стати причиною ядерної катастрофи. На АЕС є дизельні генератори, які автоматично вмикаються, коли подача електроенергії зупиняються, але це останній запобіжник від катастрофи. Часте його використання — це не надто надійно.</p>
+    <p>“Україна після аварії на Фукусімі провела стрес-тести всіх АЕС і взяла до уваги уроки фукусімської аварії — за методологією ЄС, — коментує Ольга Кошарна. — Передбачали ймовірність впливу на ЗАЕС повені та землетрусу. Укріпили герметичну оболонку, поставили додаткові фільтри для затримання радіонуклідів, хімічні рекомбінатори водню під гермооболонкою — на випадок збільшення концентрації водню. </p>
+    <p>Зазвичай рівень безпеки розраховують на випадок падіння легкого літака, землетрусу, повені, урагану, торнадо. Обстріл не описують у звітах з безпеки як подію, яка може становити загрозу. </p>
+    <p>Які території буде забруднено, якщо станеться аварія на АЕС? Грубо кажучи, у разі аварії влітку «летіло» б на південь України, потім на Болгарію, Румунію, Чорне море та Туреччину. Восени вітри були переважно західними — тоді, відповідно, летіло б на Донецьку область і Краснодарський край. Якщо вітер південно-західний — на вільну Україну, Білорусь і Росію”. </p>
+
+    <h2>Місія МАГАТЕ </h2>
+   <p>У своєму звіті на 57 сторінок МАГАТЕ визнала, що в результаті захоплення й контролю росіянами ЗАЕС порушено всі ключові засади ядерної безпеки. Коротко по пунктах: <br>
+    1. Пошкоджено будівлю АЕС у різних місцях.<br>
+    2. Пошкоджено системи безпеки на допоміжних виробництвах.<br>
+    3. Російські військові обмежують доступ персоналу до окремих ділянок станції та здійснюють постійний психологічний тиск.<br>
+    4. ЗАЕС не підтримує сталого зв'язку, як того вимагають стандарти, з галузевим регулятором “Енергоатомом” і самим МАГАТЕ.<br>
+    5. Через логістичні проблеми ЗАЕС не має стійкого постачання дизельного пального для резервних генераторів.</p>
+</div>
+
+<div class="image-wrapper">
+    <img src="img/magate2.jpg"/>
+    <p class="image-caption">Росіяни демонструють представникам МАГАТЕ дірку від снаряда у даху спецкорпусу №1, стверджуючи, що це результат обстрілів ЗАЕС українськими збройними силами. <br> Фото: МАГАТЕ
+    </p>
+</div>
+
+<div class="text-wrapper">
+    <p>1 вересня під час короткого візиту на ЗАЕС місію МАГАТЕ на чолі з гендиректором Рафаелем Гроссі всюди супроводжували окупанти, які поширювали дезінформацію щодо обстрілів станції. Також вони організували “листи від небайдужих громадян”, які скаржилися інспекторам на обстріли ЗСУ. Двоє працівників МАГАТЕ залишаються на станції після від’їзду Рафаеля Гроссі. Очільник МАГАТЕ водночас докладає дипломатичних зусиль, щоб створити демілітаризовану зону на ЗАЕС і навколо станції.</p>
+
+    <h2>Украсти технології </h2>
+    <p>“Росіяни зацікавлені в безпечній і робочій атомній станції, — пояснює логіку дій окупантів Олена Кошарна, — щоб постачати електроенергію до Криму, де зараз наявний дефіцит”.</p>
+    <p>Адже кримські теплові електростанції зі “скандальними” турбінами Siemens, запущені у 2018 році, працювали на газу, що надходив з родовищ, де були "вишки Бойка” — ЗСУ знищили їх ще в червні 2022 року.</p>
+    <p>Решту потужностей ЗАЕС вони хотіли б віддавати в енергосистему РФ, щоб постачати у Краснодарський край. ЗАЕС для росіян цінна ще й тим, що використовує паливо Westinghouse, яке ефективніше за російське. </p>
+    <p>Працівники станції остерігаються, що росіяни могли вивезти свіжі й відпрацьовані збірки американського палива Westinghouse до Росії, щоб розібрати й дослідити особливості конструкції. </p>
+    <p>На майданчику біля ЗАЕС розташоване сухе сховище відпрацьованого палива, побудоване за американською технологією, та система фізичного захисту, яку США постачали від 2014 року. Це сучасні технології, яких росіяни не мають і які можуть їх цікавити. </p>
+    <p>У цьому також причина, чому окупанти тероризують український персонал станції й погрозами та тортурами змушують їх працювати на “Росатом” — їх неможливо замінити росіянами.</p>
+
+    <p class="credits">Над проєктом працювали Сергій Сидоров, Маргарита Огнєва, Вероніка Хорольська, Катерина Рождественська, <a href="">Надя Кельм</a>, <a href="">Євгенія Дроздова</a>, <a href="">Денис Губашов</a>, <a href="">Інна Гадзинська</a></p>
+
+    <p class="credits" style="margin-top:50px">Матеріал підготовлено за сприяння Фонду розвитку ЗМІ посольства США. Грантодавець не відповідає за думки та інформацію, викладені у статті.</p>
+
+</div>
+
+
+
+
+
 <div id="tip"></div>
 
 
 
 
-<script src="map.js"></script>
-<script>
-//here we've used some tips from https://bl.ocks.org/mbostock/4063318
+
+<script src="js/map.js"></script>
+<script src="js/calendar.js"></script>
+<script src="libs/share-behavior.js"></script>
 
 
 
-var width = 120,
-    height = 120,
-    cellSize = 16,
-    innerCellSize = 12;
-
-const dayFormatter_function = function(d) { return (d.getDay() + 6) % 7; }; 
-const month_list = d3.range(1,12,1);
-
-
-const localeMonth = {
-    1:"Лютий",
-    2:"Березень",
-    3:"Квітень",
-    4:"Травень",
-    5:"Червень",
-    6:"Липень",
-    7:"Серпень",
-    8:"Вересень",
-    9:"Жовтень",
-    10:"Листопад",
-    11:"Грудень"
-}
-
-const template = document.getElementById('tip');
-// template.style.display = 'block';
-
-const color = d3.scaleOrdinal()
-    .domain(["Спротив енергодарців", "Обстріли Енергодара",  'Місія МАГАТЕ', "Окупація та зміна інформаційного простору"])
-    .range(["#346294", "red", "#74997F", "#5B1A1B"])
-    .unknown("white");
-
-const radius = d3.scaleOrdinal()
-    .domain(["Спротив енергодарців", "Обстріли Енергодара",  'Місія МАГАТЕ', "Окупація та зміна інформаційного простору"])
-    .range(["3", "3", "6", "6"]);
-
-
-
-d3.csv("calendar_data_cleaned.csv", function(csv){
-
-    var types_list = d3.map(csv, function(d){ return d.type}).keys();
-
-    
-    csv.forEach(function(d){ d.date = new Date(d.date) })
-
-    //За цими категоріями фільтруємо квадрати
-    // дати захоплення
-    var stroked = csv.filter(function(d){ return d.type === "Захоплення міста"}).map(function(d){ return d.date});
-    // дати захоплення
-    var peachy = csv.filter(function(d){ return d.type === "Шантаж і загроза ЗАЕС"}).map(function(d){ return d.date});
- 
-    //дані розбиті по місяцях, по ним далі додаємо кола
-    var nested_by_month = d3.nest()
-        .key(function(d){return d.month;})
-        .key(function(d){return d.type;})
-        .entries(csv);
-
-
-month_list.forEach(function(month){
-
-    var svg = d3.select("main")
-        .append("svg")
-        .style("overflow", "visible")
-        .attr("width",  "100%")
-        .attr("height",  "100%")
-        .attr("viewBox",  `0 0 120 120`)
-        .append("g")
-        .attr("transform", "translate(" + 0 + "," + 10 + ")");
-
-    svg.append('text')
-        .attr("x", 0)
-        .attr("y", 10)
-        .text(localeMonth[month])
-        .attr("fill", "grey")
-        .style("text-transform", "uppercase")
-
-    //базові квадратики самого календаря
-    var rect = svg
-        .selectAll("rect")
-        .data(function(d) { 
-            return d3.timeDays(new Date(2022, month, 1), new Date(2022, month+1, 1)); })
-        .enter().append("rect")
-            .attr("class", 'calendar')
-            .attr("width", innerCellSize)
-            .attr("height", innerCellSize)
-            // .attr("class", "day-rect")
-            .attr("y", function(d) { return  getWeekNo(d) * cellSize })
-            .attr("x", function(d) { return dayFormatter_function(d) * cellSize; })
-            .attr("fill", "#333")
-            .attr("data-tippy-content", function(d){
-                let selected_day = csv.filter(function(k){
-                    return k.date.toDateString() === d.toDateString()
-                });
-
-                var tip_html = `<p class='tip-date'>${d.toLocaleDateString('uk-UK', { year: 'numeric', month: 'long', day: 'numeric' })}</p><p>`
-
-                selected_day.forEach(function(item){
-                    tip_html = tip_html + 
-                        `<span class="tip-subtitle">${item.description}</span> `
-                        // `<span class='type-indicator' style="background-color: ${color(item.type)};"></span></h2>`
-                        // `<p class='tip-p'>${item.full_description}</p>`
-                })
-
-                tip_html = tip_html + "</p>"
-
-                if(selected_day.length > 0){
-                    return tip_html
-                } else {
-                    return `<p class='tip-date'>${d.toLocaleDateString('uk-UK', { year: 'numeric', month: 'long', day: 'numeric' })}</p><p class='tip-p'>Про цей день нічого не відомо</p>`
-                }
-               
-            });
-            
-            tippy('.calendar', {
-                allowHTML: true,
-                //trigger: "click",
-                maxWidth: 250,
-
-            });
-    
-    //фільтруємо дані за вказаним місяцем і додаємо маркери на календар
-    let filtered = nested_by_month.filter(function(d){
-        return d.key.toString() === (month+1).toString()
-        });
-
-    var small_circles_data = filtered[0].values
-        .filter(function(d){ return ["Спротив енергодарців", "Обстріли Енергодара"].includes(d.key) })
-
-    var big_circle_data = filtered[0].values
-        .filter(function(d){ return ['Місія МАГАТЕ', "Окупація та зміна інформаційного простору"].includes(d.key) });
-    
-
-
-    big_circle_data.forEach(function(type,i){
-
-        let theColor = color(type.key);
-        let theRadius = radius(type.key);
-
-        type.values.forEach(function(d){
-
-            svg.append("circle")
-            .attr("class", "t_"+i)
-            .attr("r", theRadius)
-            .attr("cy", function() { 
-                return (getWeekNo(d.date) * cellSize) + innerCellSize/2 })
-            .attr("cx", function() {
-                return  dayFormatter_function(d.date) * cellSize + innerCellSize/2  })
-            .attr("fill", theColor)
-            .style("pointer-events", "none");
-
-        })
-        })
-
-
-    small_circles_data.forEach(function(type,i){
-
-        let theColor = color(type.key);
-        let theRadius = radius(type.key);
-
-        type.values.forEach(function(d){
-
-            svg.append("circle")
-            .attr("class", "t_"+i)
-            .attr("r", theRadius)
-            .attr("cy", function() { 
-                return (getWeekNo(d.date) * cellSize) + innerCellSize/2 })
-            .attr("cx", function() {
-                return  dayFormatter_function(d.date) * cellSize + innerCellSize/2  })
-            .attr("fill", theColor)
-            .style("pointer-events", "none");
-
-        })
-    })
-
-
-    rect.filter(function(d){
-        let date1 = new Date(Date.UTC(d.getFullYear(),d.getMonth(), d.getDate()))    
-            return (stroked.find(date => date.getTime() === date1.getTime())) != undefined;
-        })
-        .attr("stroke", "brown")
-       
-
-
-    rect.filter(function(d){
-        let date1 = new Date(Date.UTC(d.getFullYear(),d.getMonth(), d.getDate()))    
-            return (peachy.find(date => date.getTime() === date1.getTime())) != undefined;
-        })
-        .attr("fill", "#CF6162")
-    })
-
-
-function getWeekNo(date) {
-    var day = date.getDate()
-    day += (date.getDay() == 0 ? 0 : 7 - date.getDay());
-    return Math.ceil(parseFloat(day) / 7);
-}
-
-});
-
-
-
-
-
-
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-18136548-1']);
+    _gaq.push(['_trackPageview']);
+    (function () {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+    })();
 </script>

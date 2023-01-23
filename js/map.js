@@ -6,9 +6,7 @@ var map_center = [34.586999, 47.511116]
 mapboxgl.accessToken = 'pk.eyJ1IjoiZXZnZXNoYWRyb3pkb3ZhIiwiYSI6ImNqOWRhbnk3MDI4MGIycW9ya2hibG9pNm8ifQ.8VxS8cKEypk08xfgUgbsHw';
 const map = new mapboxgl.Map({
     container: 'map',
-    // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
     style: 'mapbox://styles/mapbox/satellite-v9',
-    //style: 'mapbox://styles/mapbox/light-v11',
     center: map_center,
     zoom: main_zoom,
     pitch: 0,
@@ -17,127 +15,102 @@ const map = new mapboxgl.Map({
 });
 
 
-
-
 map.scrollZoom.disable();
 map.addControl(new mapboxgl.NavigationControl(),  'top-left');
 
 map.on('load', function () {
 
-    if(window.innerWidth > 800){
-        d3.select(".scroll__graphic").style("z-index", 0)}
+    if(window.innerWidth > 800){ d3.select(".scroll__graphic").style("z-index", 0) }
 
-//     map.addSource('bla.tile',{
-//         'type': 'raster',
-//         'tiles': ['https://thallium.texty.org.ua/maps/energodar/tiles_webp/{z}/{x}/{y}.webp'],
-//         'tileSize': 150
-//     })
-
-// map.addLayer({
-//         'id': 'bla',
-//         'type': 'raster',
-//         'source': 'bla.tile'
-//     })
-
+    // Sources
     map.addSource('picture1', { 
         'type': 'image',  
-        'url': 'img/15_11 копія 2.png', 
-        'coordinates': [
-            [34.600294,47.504517],
-            [34.624802,47.504517],
-            [34.624650,47.495463],
-            [34.600264,47.495433]
-        ]              
+        'url': 'img/15_11_planet.png', 
+        'coordinates': [ [34.600294,47.504517], [34.624802,47.504517],[34.624650,47.495463],[34.600264,47.495433] ]              
     });  
 
     map.addSource('picture2', { 
         'type': 'image',  
-        'url': 'img/15_10 копія.png', 
-        'coordinates': [
-            [34.5354264,47.5306849],
-            [34.5426339,47.5306849],
-            [34.5426002,47.5279939],
-            [34.5354376,47.5280015]
-        ]              
+        'url': 'img/15_10_planet.png', 
+        'coordinates': [ [34.5354264,47.5306849],[34.5426339,47.5306849],[34.5426002,47.5279939],[34.5354376,47.5280015] ]              
     });  
-            
+
+    map.addSource("polygon", {
+        "type": "geojson",
+        'data': "data/polygon2.geojson"
+    });
+
+    map.addSource("points", {
+        "type": "geojson",
+        'data': "data/points.geojson"
+    });
+          
+    // Layers
     map.addLayer({
         id: 'tif',
         'type': 'raster',
         'source': 'picture1',
         'minzoom': 12, 
-        'layout': {
-            // Make the layer visible by default.
-            //'visibility': 'none'
-            },
+        'paint': { 'raster-fade-duration': 0 }
+    });
+
+    map.addLayer({
+        id: 'tif2',
+        'type': 'raster',
+        'source': 'picture2',
+        'minzoom': 12, 
+        'paint': { 'raster-fade-duration': 0 }
+    });
+
+    //polygon stroke
+    map.addLayer({
+        "id": "boundary-outline",
+        'type': 'line',
+        "source": "polygon",
         'paint': {
-            'raster-fade-duration': 0,
-            
+            'line-color': '#F26344',
+            'line-width': 2
         }
-        });
-
-        map.addLayer({
-            id: 'tif2',
-            'type': 'raster',
-            'source': 'picture2',
-            'minzoom': 12, 
-            'layout': {
-                // Make the layer visible by default.
-                //'visibility': 'none'
-                },
-            'paint': {
-                'raster-fade-duration': 0,
-                
-            }
-            });
-
-    map.addSource("polygon", {
-        "type": "geojson",
-        'data': "polygon2.geojson"
     });
 
-    map.addSource("points", {
-        "type": "geojson",
-        'data': "points.geojson"
-    });
-
+     //polygon fill
     map.addLayer({
         "id": "boundary-layer",
         'type': 'fill',
         "source": "polygon",
-        
-        "layout": {
-            "fill-sort-key": ["to-number", ["get", "area"]],
-           
-        },
         'paint': {
-            'fill-color': "#FF00FF",
-            'fill-opacity': 0.2
+            'fill-color': '#F26344',
+            'fill-opacity': 0.01
         }
     });
 
-    map.setFilter(  'boundary-layer', ["match", ["get", "id"], [""], true, false])
 
-
+    //points
     map.addLayer({
         "id": "points-layer",
         'type': 'circle',
         "source": "points",
         'paint': {
             'circle-radius': 4,
-            'circle-color': '#01FFFF',
-            "circle-opacity": 0,
-            // "circle-stroke-width": 1,
-            // "circle-stroke-color": "black"
+            'circle-color': '#F26344',
+            "circle-stroke-width": 1,
+            "circle-stroke-color": "white"
 
         }
     });
 
+    map.setFilter(  'boundary-layer', ["match", ["get", "id"], [""], true, false])
+    map.setFilter(  'boundary-outline', ["match", ["get", "id"], [""], true, false])
+    map.setFilter(  'points-layer', ["match", ["get", "id"], [""], true, false])
+
+
+
+   
 const index_locations = {
     0: {"coords": [34.586999, 47.511116], "zoom": main_zoom }, 
     1: {"coords":[34.586999, 47.511116], "zoom": main_zoom },
     2: {"coords":[34.587287,47.506251], "zoom": main_zoom },
-    3: {"coords":[34.586999, 47.511116], "zoom": iW > 800 ? 14 : 13.5 },
+    3: {"coords":[34.586999, 47.511116], "zoom": iW > 800 ? 14 : 13 },
     4: {"coords":[34.612, 47.4989], "zoom": main_zoom },
     5: {"coords":[34.591758,47.510318], "zoom": main_zoom },
     6: {"coords":[34.586999, 47.511116], "zoom": main_zoom },
@@ -167,23 +140,25 @@ const index_locations = {
 }
 
 
-
-
-
-var container = document.querySelector('#scroll');
-var graphic = document.querySelector('#scroll > .scroll__graphic'); //container.select('.scroll__graphic');
-var text = document.querySelector('#scroll > .scroll__text'); //container.select('.scroll__text');
-var step = document.querySelector('#scroll > .scroll__text > .step'); // text.selectAll('.step');
+// var container = document.querySelector('#scroll');
+// var graphic = document.querySelector('#scroll > .scroll__graphic'); //container.select('.scroll__graphic');
+// var text = document.querySelector('#scroll > .scroll__text'); //container.select('.scroll__text');
+// var step = document.querySelector('#scroll > .scroll__text > .step'); // text.selectAll('.step');
 var scroller = scrollama();
       
 function handleStepEnter(r) {  
     let myarr = $(r.element).data("polygons");
     let myarr2 = $(r.element).data("points");
 
+    // filter layers
     map.setFilter('boundary-layer', ["match", ["get", "id"], myarr, true, false]);
+    map.setFilter('boundary-outline', ["match", ["get", "id"], myarr, true, false]);
+    map.setFilter('points-layer', ["match", ["get", "id"], myarr2, true, false]);
 
+    // text hover popup
     var f_popup = new mapboxgl.Popup({
         closeOnClick: false,
+        closeButton: false,
         offset: [0, 0]
       })
 
@@ -217,13 +192,9 @@ function handleStepEnter(r) {
             filter: ["==", "id", popup_element]
         });
 
-        // console.log(filtered_feature);
-
-        // var f_polygon = turf.polygon(filtered_feature[0].geometry.coordinates[0]);
-        // var centroid = turf.centroid(f_polygon);
         let description = filtered_feature[0].properties.name;
 
-       f_popup
+        f_popup
           .setLngLat([filtered_feature[0].geometry.coordinates[0],filtered_feature[0].geometry.coordinates[1]])
           .setHTML(description)
           .addTo(map);
@@ -233,19 +204,12 @@ function handleStepEnter(r) {
         f_popup.remove()
     })
 
-    map.setPaintProperty(
-        'points-layer', 
-        'circle-opacity', 
-            ['case',['in', ['get','id'], ['literal', myarr2]], 1, 0]
-        );
-
-        map.flyTo({
-            center: index_locations[r.index].coords,
-            zoom: index_locations[r.index].zoom,
-            duration: 1200, 
-            essential: true
-        })
-
+    map.flyTo({
+        center: index_locations[r.index].coords,
+        zoom: index_locations[r.index].zoom,
+        duration: 1200, 
+        essential: true
+    })
 }
       
 function init() {   
@@ -261,12 +225,14 @@ function init() {
 
 }
 init();
-
-
 });
 
+
+
+// map events
 var popup = new mapboxgl.Popup({
     closeOnClick: false,
+    closeButton: false,
     offset: [0, -15]
   })
 
@@ -294,7 +260,6 @@ map.on('mouseenter', 'points-layer', (e) => {
     // Copy coordinates array.
     const coordinates = e.features[0].geometry.coordinates.slice();
     const description = e.features[0].properties.name;
-
     
     while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
         coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
@@ -306,18 +271,13 @@ map.on('mouseenter', 'points-layer', (e) => {
     .addTo(map);
 });
 
-    // map.on('mouseenter', 'boundary-layer', () => {
-    //     map.getCanvas().style.cursor = 'pointer';
-    // });
-     
-    // Change it back to a pointer when it leaves.
-    map.on('mouseleave', 'boundary-layer', () => {
-        popup.remove();
-    });
+map.on('mouseleave', 'boundary-layer', () => {
+    popup.remove();
+});
 
-    map.on('mouseleave', 'points-layer', () => {
-        popup.remove();
-    });
+map.on('mouseleave', 'points-layer', () => {
+    popup.remove();
+});
 
 
 
