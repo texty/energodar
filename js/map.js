@@ -231,7 +231,7 @@ init();
 
 // map events
 var popup = new mapboxgl.Popup({
-    closeOnClick: false,
+    closeOnClick: true,
     closeButton: false,
     offset: [0, -15]
   })
