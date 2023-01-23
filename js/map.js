@@ -37,7 +37,7 @@ map.on('load', function () {
 
     map.addSource("polygon", {
         "type": "geojson",
-        'data': "data/polygon2.geojson"
+        'data': "data/polygon2_2.geojson"
     });
 
     map.addSource("points", {
@@ -145,8 +145,16 @@ const index_locations = {
 // var text = document.querySelector('#scroll > .scroll__text'); //container.select('.scroll__text');
 // var step = document.querySelector('#scroll > .scroll__text > .step'); // text.selectAll('.step');
 var scroller = scrollama();
+
+// text hover popup
+var f_popup = new mapboxgl.Popup({
+    closeOnClick: true,
+    closeButton: false,
+    offset: [0, 0]
+  })
       
 function handleStepEnter(r) {  
+   $(".mapboxgl-popup").remove();
     let myarr = $(r.element).data("polygons");
     let myarr2 = $(r.element).data("points");
 
@@ -155,12 +163,7 @@ function handleStepEnter(r) {
     map.setFilter('boundary-outline', ["match", ["get", "id"], myarr, true, false]);
     map.setFilter('points-layer', ["match", ["get", "id"], myarr2, true, false]);
 
-    // text hover popup
-    var f_popup = new mapboxgl.Popup({
-        closeOnClick: true,
-        closeButton: false,
-        offset: [0, 0]
-      })
+    
 
     d3.selectAll(".show-popup").on("mouseover", function(d){
         let popup_element = $(this).data("click");
@@ -180,7 +183,7 @@ function handleStepEnter(r) {
           .addTo(map);
     });
 
-    d3.selectAll(".show-popup").on("mouseleave", function(d){
+    d3.selectAll(".show-popup").on("mouseout", function(d){
         f_popup.remove()
     })
 
@@ -200,7 +203,7 @@ function handleStepEnter(r) {
           .addTo(map);
     });
 
-    d3.selectAll(".show-point-popup").on("mouseleave", function(d){
+    d3.selectAll(".show-point-popup").on("mouseout", function(d){
         f_popup.remove()
     })
 
