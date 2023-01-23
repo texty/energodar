@@ -37,7 +37,7 @@ map.on('load', function () {
 
     map.addSource("polygon", {
         "type": "geojson",
-        'data': "data/polygon2.geojson"
+        'data': "data/polygon2_2.geojson"
     });
 
     map.addSource("points", {
@@ -140,11 +140,16 @@ const index_locations = {
 }
 
 
-// var container = document.querySelector('#scroll');
-// var graphic = document.querySelector('#scroll > .scroll__graphic'); //container.select('.scroll__graphic');
-// var text = document.querySelector('#scroll > .scroll__text'); //container.select('.scroll__text');
-// var step = document.querySelector('#scroll > .scroll__text > .step'); // text.selectAll('.step');
-var scroller = scrollama();
+var hint_text = iW > 800 ? "Наведіть мишею на полігон або виділений блок в тексті, щоб побачити підказку" : "Клікніть на полігон або виділений блок в тексті, щоб побачити підказку" 
+
+// popup з підказкою
+var init_popup = new mapboxgl.Popup({
+    closeOnClick: true,
+    closeButton: true,
+    offset: [0, 0]
+})
+.setLngLat([34.58859050273895, 47.51503194775597])
+.setHTML(hint_text)
 
 // text hover popup
 var f_popup = new mapboxgl.Popup({
@@ -152,9 +157,21 @@ var f_popup = new mapboxgl.Popup({
     closeButton: false,
     offset: [0, 0]
   })
+
+
+// var container = document.querySelector('#scroll');
+// var graphic = document.querySelector('#scroll > .scroll__graphic'); //container.select('.scroll__graphic');
+// var text = document.querySelector('#scroll > .scroll__text'); //container.select('.scroll__text');
+// var step = document.querySelector('#scroll > .scroll__text > .step'); // text.selectAll('.step');
+var scroller = scrollama();
+
+
+
+
+  
       
 function handleStepEnter(r) {  
-   $(".mapboxgl-popup").remove();
+    $(".mapboxgl-popup").remove();
     let myarr = $(r.element).data("polygons");
     let myarr2 = $(r.element).data("points");
 
@@ -163,7 +180,10 @@ function handleStepEnter(r) {
     map.setFilter('boundary-outline', ["match", ["get", "id"], myarr, true, false]);
     map.setFilter('points-layer', ["match", ["get", "id"], myarr2, true, false]);
 
-    
+    if(r.index === 0 ){
+        init_popup.addTo(map);
+    }
+
 
     d3.selectAll(".show-popup").on("mouseover", function(d){
         let popup_element = $(this).data("click");
@@ -254,23 +274,15 @@ map.on('mouseenter', 'boundary-layer', (e) => {
     });
 
     var f_polygon = turf.polygon(filtered_feature[0].geometry.coordinates);
-    var centroid = turf.centroid(f_polygon);
+    var centroid = turf.centroid(f_polygon);    
+
     console.log(centroid.geometry.coordinates)
-    
 
    popup
       .setLngLat(centroid.geometry.coordinates)
       .setHTML(description)
       .addTo(map);
-    
-    // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-    //     coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-    // }
 
-    // popup
-    // .setLngLat([e.lngLat.lng, e.lngLat.lat])
-    // .setHTML(description)
-    // .addTo(map);
 });
 
 map.on('touchstart', 'boundary-layer', (e) => {
@@ -286,26 +298,16 @@ map.on('touchstart', 'boundary-layer', (e) => {
 
     var f_polygon = turf.polygon(filtered_feature[0].geometry.coordinates);
     var centroid = turf.centroid(f_polygon);
-    console.log(centroid.geometry.coordinates)
     
 
    popup
       .setLngLat(centroid.geometry.coordinates)
       .setHTML(description)
       .addTo(map);
-    
-    // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-    //     coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-    // }
 
-    // popup
-    // .setLngLat([e.lngLat.lng, e.lngLat.lat])
-    // .setHTML(description)
-    // .addTo(map);
 });
 
 map.on('mouseover', 'points-layer', (e) => {
-    console.log(e.features[0].geometry.coordinates)
     
     // Copy coordinates array.
     const coordinates = e.features[0].geometry.coordinates.slice();

@@ -206,6 +206,16 @@ p.tip-p {
     border-top-color: #f26444dd !important
 }
 
+.mapboxgl-popup-close-button  {
+    position: relative;
+   
+    color: white;
+}
+
+.mapboxgl-popup-close-button::before {
+    content: "Зрозуміло ";
+}
+
 #scroll {        
     position: relative;
     width: 100%;
