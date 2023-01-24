@@ -231,7 +231,6 @@ p.tip-p {
     top: 0;
     left: 1em;
     max-height: 100vh;
-    z-index: -1; 
     background-color: white;
 }   
 
@@ -239,7 +238,7 @@ p.tip-p {
     width: 100%; 
     max-width: 500px;   
     margin-left: auto;
-    z-index: 100;
+    /* z-index: 100; */
     position:relative;
     background-color:#292728
 }

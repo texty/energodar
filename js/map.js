@@ -20,8 +20,6 @@ map.addControl(new mapboxgl.NavigationControl(),  'top-left');
 
 map.on('load', function () {
 
-    if(window.innerWidth > 800){ d3.select(".scroll__graphic").style("z-index", 0) }
-
     // Sources
     map.addSource('picture1', { 
         'type': 'image',  
